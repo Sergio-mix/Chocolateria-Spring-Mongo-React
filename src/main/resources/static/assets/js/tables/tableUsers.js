@@ -129,7 +129,8 @@ async function updateUser(id) {
             && pass !== ''
             && password !== ''
             && email.length <= 50
-            && password.length <= 50) {
+            && password.length <= 50
+            && REGEX.test(email)) {
             document.getElementById('load_modal').classList.add('show');
             let res = await user_login(EMAIL, pass);
             if (res.id !== null) {
@@ -159,9 +160,11 @@ async function updateUser(id) {
                     await allUsers();
                 });
             } else {
+                document.getElementById('load_modal').classList.remove('show');
                 alert('Incorrect password');
             }
         } else {
+            document.getElementById('load_modal').classList.remove('show');
             alert('Invalid input values');
         }
     }
@@ -191,7 +194,8 @@ function registerUser() {
             && pass !== ''
             && password !== ''
             && email.length <= 50
-            && password.length <= 50) {
+            && password.length <= 50
+            && REGEX.test(email)) {
             document.getElementById('load_modal').classList.add('show');
             let res = await user_login(EMAIL, pass);
             if (res.id !== null) {
@@ -214,12 +218,15 @@ function registerUser() {
                         await allUsers();
                     });
                 } else {
+                    document.getElementById('load_modal').classList.remove('show');
                     alert('The email is already registered');
                 }
             } else {
+                document.getElementById('load_modal').classList.remove('show');
                 alert('Incorrect password');
             }
         } else {
+            document.getElementById('load_modal').classList.remove('show');
             alert('Invalid input values');
         }
     }

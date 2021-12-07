@@ -89,63 +89,13 @@ async function updateProduct(id) {
     fromProduct('Update Product');
 
     let pr = await queryGD('GET', productByid + id);
-    document.getElementById('txtReference').value = pr.reference;
+    let reference = pr.reference;
     document.getElementById('txtCategory').value = pr.category;
     document.getElementById('txtAvailability').value = pr.availability;
     document.getElementById('txtPrice').value = pr.price;
     document.getElementById('txtQuantity').value = pr.quantity;
     document.getElementById('txtPhotography').value = pr.photography;
     document.getElementById('txtDescription').value = pr.category;
-
-    document.getElementById('onClickUpdateUser').onclick = async function () {
-        let reference = document.getElementById('txtReference').value;
-        let category = document.getElementById('txtCategory').value;
-        let availability = document.getElementById('txtAvailability').value;
-        let price = document.getElementById('txtPrice').value;
-        let quantity = document.getElementById('txtQuantity').value;
-        let photography = document.getElementById('txtPhotography').value;
-        let description = document.getElementById('txtDescription').value;
-        let pass = document.getElementById('txtPasswordUser').value;
-
-        if (reference !== ''
-            && category !== ''
-            && availability !== ''
-            && price !== ''
-            && quantity !== ''
-            && photography !== ''
-            && description !== ''
-            && pass !== ''
-            && description.length <= 80) {
-            let res = await user_login(EMAIL, pass);
-            if (res.id !== null) {
-                document.getElementById('load_modal').classList.add('show');
-
-                await queryPT('PUT', product_update, {
-                    reference: reference,
-                    category: category,
-                    availability: availability,
-                    price: price,
-                    quantity: quantity,
-                    photography: photography,
-                    description: description
-                }).then(async e => {
-                    document.getElementById('load_modal').classList.remove('show');
-                    document.getElementById('modal_container').classList.remove('show');
-                    alert('Updated product');
-                    await allProducts();
-                });
-            } else {
-                alert('Incorrect password');
-            }
-        } else {
-            alert('Invalid input values');
-        }
-    }
-}
-
-function registerProduct() {
-    fromProduct('Register Product');
-    document.getElementById('txtReference').disabled = true;
 
     document.getElementById('onClickUpdateUser').onclick = async function () {
         let category = document.getElementById('txtCategory').value;
@@ -164,10 +114,57 @@ function registerProduct() {
             && description !== ''
             && pass !== ''
             && description.length <= 80) {
+            document.getElementById('load_modal').classList.add('show');
             let res = await user_login(EMAIL, pass);
             if (res.id !== null) {
-                document.getElementById('load_modal').classList.add('show');
+                await queryPT('PUT', product_update, {
+                    reference: reference,
+                    category: category,
+                    availability: availability,
+                    price: price,
+                    quantity: quantity,
+                    photography: photography,
+                    description: description
+                }).then(async e => {
+                    document.getElementById('load_modal').classList.remove('show');
+                    document.getElementById('modal_container').classList.remove('show');
+                    alert('Updated product');
+                    await allProducts();
+                });
+            } else {
+                document.getElementById('load_modal').classList.remove('show');
+                alert('Incorrect password');
+            }
+        } else {
+            document.getElementById('load_modal').classList.remove('show');
+            alert('Invalid input values');
+        }
+    }
+}
 
+function registerProduct() {
+    fromProduct('Register Product');
+
+    document.getElementById('onClickUpdateUser').onclick = async function () {
+        let category = document.getElementById('txtCategory').value;
+        let availability = document.getElementById('txtAvailability').value;
+        let price = document.getElementById('txtPrice').value;
+        let quantity = document.getElementById('txtQuantity').value;
+        let photography = document.getElementById('txtPhotography').value;
+        let description = document.getElementById('txtDescription').value;
+        let pass = document.getElementById('txtPasswordUser').value;
+
+        if (category !== ''
+            && availability !== ''
+            && price !== ''
+            && quantity !== ''
+            && photography !== ''
+            && description !== ''
+            && pass !== ''
+            && description.length <= 80) {
+            document.getElementById('load_modal').classList.add('show');
+            let res = await user_login(EMAIL, pass);
+            if (res.id !== null) {
                 await queryPT('POST', add_product, {
                     category: category,
                     availability: availability,
@@ -182,25 +179,21 @@ function registerProduct() {
                     await allProducts();
                 });
             } else {
+                document.getElementById('load_modal').classList.remove('show');
                 alert('Incorrect password');
             }
         } else {
+            document.getElementById('load_modal').classList.remove('show');
             alert('Invalid input values');
         }
     }
 }
 
-function fromProduct(title) {
+function fromProduct(title)     {
     document.getElementById('modal_container').classList.add('show');
     document.getElementById('titleModal').innerText = title;
     document.getElementById('containerModal').innerHTML =
         '<div class="row g-3 modal-dialog-scrollable navbar-nav-scroll">\n' +
-        '               <div class="col-md-6">\n' +
-        '                    <div class="input-group input-group-static">\n' +
-        '                        <label for="txtReference" >Reference <strong>(required)</strong></label>\n' +
-        '                        <input class="form-control" type="text" id="txtReference">\n' +
-        '                    </div>\n' +
-        '                </div>\n' +
         '                <div class="col-md-6">\n' +
         '                    <div class="input-group input-group-static">\n' +
         '                        <label for="txtCategory" >Category <strong>(required)</strong></label>\n' +
