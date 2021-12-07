@@ -1,4 +1,5 @@
-const API = 'http://localhost:8080/';
+// const API = 'http://localhost:8080/';
+const API = 'http://132.226.37.129:8081/';
 
 const authenticate = API + 'api/user/';
 const userByid = API + 'api/user/get/';
