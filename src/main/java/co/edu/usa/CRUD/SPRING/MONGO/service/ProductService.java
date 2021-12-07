@@ -51,10 +51,6 @@ public class ProductService {
 
     public Product getProductById(String id) {
         Optional<Product> product = productRepository.findById(id);
-        if (product.isPresent()) {
-            return product.get();
-        } else {
-            throw new ResourceNotFoundException("Product with id: " + id + " NotFound");
-        }
+        return product.orElse(null);
     }
 }

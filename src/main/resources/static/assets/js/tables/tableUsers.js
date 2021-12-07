@@ -8,7 +8,7 @@ async function allUsers() {
             'Content-Type': 'application/json'
         }
     }).catch(err => {
-        location.reload();
+        // location.reload();
     })
 
     const users = await request.json();
@@ -16,7 +16,7 @@ async function allUsers() {
     let listHtml = '';
     for (let user of users) {
         let remove = "<button style=\"color: #dc4d5c\" class=\"btn btn-sm btn-neutral\" " +
-            "onclick='deleteUser(" + user.id + ",this" + ")'>" +
+            "onclick='deleteUser(" + user.id + ")'>" +
             "Remove</button>";
 
         if (user.id === +ID) {
@@ -44,7 +44,7 @@ async function allUsers() {
     document.getElementById('numberUsers').innerText = users.length;
 }
 
-function deleteUser(id, btn) {
+function deleteUser(id) {
     document.getElementById('modal_container').classList.add('show');
     document.getElementById('titleModal').innerText = 'Remove User';
     document.getElementById('containerModal').innerHTML =
@@ -75,8 +75,7 @@ function deleteUser(id, btn) {
                     document.getElementById('load_modal').classList.remove('show');
                     document.getElementById('modal_container').classList.remove('show');
                     alert('User Deleted');
-                    let row = btn.parentNode.parentNode;
-                    row.parentNode.removeChild(row);
+                    await allUsers();
                 } else {
                     document.getElementById('load_modal').classList.remove('show');
                     alert('Could not delete user')
@@ -95,7 +94,7 @@ function deleteUser(id, btn) {
 }
 
 async function updateUser(id) {
-    from('Update');
+    fromUser('Update User');
 
     let us = await queryGD('GET', userByid + id);
     document.getElementById('txtIdentification').value = us.identification;
@@ -119,16 +118,16 @@ async function updateUser(id) {
         let type = document.getElementById('txtType').value;
         let pass = document.getElementById('txtPasswordUser').value;
 
-        let res = await user_login(EMAIL, pass);
-        if (res.id !== null) {
-            if (identification !== ''
-                && name !== ''
-                && address !== ''
-                && cellPhone !== ''
-                && email !== ''
-                && zone !== ''
-                && type !== ''
-                && pass !== '') {
+        if (identification !== ''
+            && name !== ''
+            && address !== ''
+            && cellPhone !== ''
+            && email !== ''
+            && zone !== ''
+            && type !== ''
+            && pass !== '') {
+            let res = await user_login(EMAIL, pass);
+            if (res.id !== null) {
                 document.getElementById('load_modal').classList.add('show');
 
                 await queryPT('PUT', update_user, {
@@ -143,21 +142,21 @@ async function updateUser(id) {
                     password: password
                 }).then(async e => {
                     document.getElementById('load_modal').classList.remove('show');
-                    document.getElementById('modal_container').classList.add('show');
+                    document.getElementById('modal_container').classList.remove('show');
                     alert('Updated user data');
                     await allUsers();
                 });
             } else {
-                alert('Invalid input values');
+                alert('Incorrect password');
             }
         } else {
-            alert('Incorrect password');
+            alert('Invalid input values');
         }
     }
 }
 
 function registerUser() {
-    from('Register');
+    fromUser('Register User');
 
     document.getElementById('onClickUpdateUser').onclick = async function () {
         let identification = document.getElementById('txtIdentification').value;
@@ -170,16 +169,16 @@ function registerUser() {
         let type = document.getElementById('txtType').value;
         let pass = document.getElementById('txtPasswordUser').value;
 
-        let res = await user_login(EMAIL, pass);
-        if (res.id !== null) {
-            if (identification !== ''
-                && name !== ''
-                && address !== ''
-                && cellPhone !== ''
-                && email !== ''
-                && zone !== ''
-                && type !== ''
-                && pass !== '') {
+        if (identification !== ''
+            && name !== ''
+            && address !== ''
+            && cellPhone !== ''
+            && email !== ''
+            && zone !== ''
+            && type !== ''
+            && pass !== '') {
+            let res = await user_login(EMAIL, pass);
+            if (res.id !== null) {
                 document.getElementById('load_modal').classList.add('show');
 
                 await queryPT('POST', add_user, {
@@ -194,22 +193,22 @@ function registerUser() {
                     password: password
                 }).then(async e => {
                     document.getElementById('load_modal').classList.remove('show');
-                    document.getElementById('modal_container').classList.add('show');
+                    document.getElementById('modal_container').classList.remove('show');
                     alert('User created');
                     await allUsers();
                 });
             } else {
-                alert('Invalid input values');
+                alert('Incorrect password');
             }
         } else {
-            alert('Incorrect password');
+            alert('Invalid input values');
         }
     }
 }
 
-function from(title) {
+function fromUser(title) {
     document.getElementById('modal_container').classList.add('show');
-    document.getElementById('titleModal').innerText = title + ' User';
+    document.getElementById('titleModal').innerText = title;
     document.getElementById('containerModal').innerHTML =
         '<div class="row g-3 modal-dialog-scrollable navbar-nav-scroll">\n' +
         '               <div class="col-md-6">\n' +

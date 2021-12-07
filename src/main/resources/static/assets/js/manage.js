@@ -5,8 +5,15 @@ const userByid = API + 'api/user/get/';
 const all_user = API + 'api/user/all';
 const remove_user = API + 'api/user/'
 const update_user = API + 'api/user/update/';
-const add_user = API + 'api/user/new/'
+const add_user = API + 'api/user/new/';
+
 const validate_Email = API + 'api/usuario/email';
+
+const add_product = API + 'api/chocolate/new';
+const all_product = API + 'api/chocolate/all';
+const remove_product = API + 'api/chocolate/'
+const productByid = API + 'api/chocolate/get/';
+const product_update = API + 'api/chocolate/update';
 
 
 function user_login(email, password) {
@@ -20,7 +27,7 @@ function user_login(email, password) {
             }).then(res => res.json()).then(res => {
                 return res;
             }).catch(err => {
-                location.reload();
+                // location.reload();
             })
         );
     });
@@ -37,7 +44,7 @@ function queryPT(type, url, object) {
             }).then(res => res.json()).then(res => {
                 return res;
             }).catch(err => {
-                location.reload();
+                // location.reload();
             })
         );
     });
@@ -54,7 +61,7 @@ function queryGD(type, url) {
             }).then(res => res.json()).then(res => {
                 return res;
             }).catch(err => {
-                location.reload();
+                // location.reload();
             })
         );
     });

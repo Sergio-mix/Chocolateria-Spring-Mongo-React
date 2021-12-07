@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/api/chocolate/")
 public class ProductRest {
@@ -39,10 +38,10 @@ public class ProductRest {
         ProductService.deleteProduct(id);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("get/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private void getProduct(@PathVariable("id") String id) {
-        ProductService.getProductById(id);
+    private Product getProduct(@PathVariable("id") String id) {
+       return ProductService.getProductById(id);
     }
 
 
