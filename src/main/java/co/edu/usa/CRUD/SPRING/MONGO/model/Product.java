@@ -18,7 +18,7 @@ public class Product {
 
     private String description;
 
-    private String availability;
+    private Boolean availability;
 
     private Double price;
 

@@ -33,7 +33,7 @@ public class ProductRest {
     }
 
     @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     private void removeProduct(@PathVariable("id") String id) {
         ProductService.deleteProduct(id);
     }

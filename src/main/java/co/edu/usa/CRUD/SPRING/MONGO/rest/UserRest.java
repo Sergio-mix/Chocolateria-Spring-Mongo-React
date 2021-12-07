@@ -46,7 +46,7 @@ public class UserRest {
     }
 
     @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     private void removeUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
     }
