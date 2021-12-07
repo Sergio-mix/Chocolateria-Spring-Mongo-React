@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/user/")
 public class UserRest {
 
@@ -51,9 +52,9 @@ public class UserRest {
         userService.deleteUser(id);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("get/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private void getUser(@PathVariable("id") Long id) {
-        userService.getUserById(id);
+    private User getUser(@PathVariable("id") Long id) {
+        return userService.getUserById(id);
     }
 }

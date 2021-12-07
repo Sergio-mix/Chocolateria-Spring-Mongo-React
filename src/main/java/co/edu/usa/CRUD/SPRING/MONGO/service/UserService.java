@@ -19,7 +19,21 @@ public class UserService {
     }
 
     public User authenticate(String email, String password) {
-        return userRepository.authenticate(email, password);
+        User us = userRepository.authenticate(email, password);
+        if (us == null) {
+            User res = new User();
+            res.setId(null);
+            res.setName(null);
+            res.setIdentification(null);
+            res.setAddress(null);
+            res.setCellPhone(null);
+            res.setEmail(null);
+            res.setPassword(null);
+            res.setZone(null);
+            res.setType(null);
+            return res;
+        }
+        return us;
     }
 
     public List<User> getUsers() {
@@ -27,7 +41,12 @@ public class UserService {
     }
 
     public User createUser(User user) {
-        return userRepository.save(user);
+        Optional<User> userM = userRepository.findById(user.getId());
+        if (userM.isEmpty()) {
+            return userRepository.save(user);
+        }else {
+            return null;
+        }
     }
 
     public User updateUser(User user) {
@@ -60,11 +79,7 @@ public class UserService {
 
     public User getUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            return user.get();
-        } else {
-            throw new ResourceNotFoundException("User with id: " + id + " NotFound");
-        }
+        return user.orElse(null);
     }
 }
 
