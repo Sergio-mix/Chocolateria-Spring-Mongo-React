@@ -114,7 +114,8 @@ async function updateProduct(id) {
             && quantity !== ''
             && photography !== ''
             && description !== ''
-            && pass !== '') {
+            && pass !== ''
+            && description.length <= 80) {
             let res = await user_login(EMAIL, pass);
             if (res.id !== null) {
                 document.getElementById('load_modal').classList.add('show');
@@ -144,9 +145,9 @@ async function updateProduct(id) {
 
 function registerProduct() {
     fromProduct('Register Product');
+    document.getElementById('txtReference').disabled = true;
 
     document.getElementById('onClickUpdateUser').onclick = async function () {
-        let reference = document.getElementById('txtReference').value;
         let category = document.getElementById('txtCategory').value;
         let availability = document.getElementById('txtAvailability').value;
         let price = document.getElementById('txtPrice').value;
@@ -155,20 +156,19 @@ function registerProduct() {
         let description = document.getElementById('txtDescription').value;
         let pass = document.getElementById('txtPasswordUser').value;
 
-        if (reference !== ''
-            && category !== ''
+        if (category !== ''
             && availability !== ''
             && price !== ''
             && quantity !== ''
             && photography !== ''
             && description !== ''
-            && pass !== '') {
+            && pass !== ''
+            && description.length <= 80) {
             let res = await user_login(EMAIL, pass);
             if (res.id !== null) {
                 document.getElementById('load_modal').classList.add('show');
 
                 await queryPT('POST', add_product, {
-                    reference: reference,
                     category: category,
                     availability: availability,
                     price: price,

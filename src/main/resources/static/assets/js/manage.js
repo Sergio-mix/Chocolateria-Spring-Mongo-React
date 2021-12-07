@@ -7,7 +7,7 @@ const remove_user = API + 'api/user/'
 const update_user = API + 'api/user/update/';
 const add_user = API + 'api/user/new/';
 
-const validate_Email = API + 'api/usuario/email';
+const validate_Email = API + 'api/user/emailexist/';
 
 const add_product = API + 'api/chocolate/new';
 const all_product = API + 'api/chocolate/all';

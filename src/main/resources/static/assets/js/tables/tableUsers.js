@@ -97,6 +97,7 @@ async function updateUser(id) {
     fromUser('Update User');
 
     let us = await queryGD('GET', userByid + id);
+    let emailValidation = us.email;
     document.getElementById('txtIdentification').value = us.identification;
     document.getElementById('txtName').value = us.name;
     document.getElementById('txtAddress').value = us.address;
@@ -125,10 +126,21 @@ async function updateUser(id) {
             && email !== ''
             && zone !== ''
             && type !== ''
-            && pass !== '') {
+            && pass !== ''
+            && password !== ''
+            && email.length <= 50
+            && password.length <= 50) {
+            document.getElementById('load_modal').classList.add('show');
             let res = await user_login(EMAIL, pass);
             if (res.id !== null) {
-                document.getElementById('load_modal').classList.add('show');
+                if (emailValidation !== email) {
+                    let validation = await queryGD('GET', validate_Email + email);
+                    if (validation === true) {
+                        document.getElementById('load_modal').classList.remove('show');
+                        alert('The email is already registered');
+                        return;
+                    }
+                }
 
                 await queryPT('PUT', update_user, {
                     id: id,
@@ -176,27 +188,34 @@ function registerUser() {
             && email !== ''
             && zone !== ''
             && type !== ''
-            && pass !== '') {
+            && pass !== ''
+            && password !== ''
+            && email.length <= 50
+            && password.length <= 50) {
+            document.getElementById('load_modal').classList.add('show');
             let res = await user_login(EMAIL, pass);
             if (res.id !== null) {
-                document.getElementById('load_modal').classList.add('show');
-
-                await queryPT('POST', add_user, {
-                    id: +identification,
-                    identification: identification,
-                    name: name,
-                    address: address,
-                    cellPhone: cellPhone,
-                    email: email,
-                    zone: zone,
-                    type: type,
-                    password: password
-                }).then(async e => {
-                    document.getElementById('load_modal').classList.remove('show');
-                    document.getElementById('modal_container').classList.remove('show');
-                    alert('User created');
-                    await allUsers();
-                });
+                let validation = await queryGD('GET', validate_Email + email);
+                if (validation === false) {
+                    await queryPT('POST', add_user, {
+                        id: +identification,
+                        identification: identification,
+                        name: name,
+                        address: address,
+                        cellPhone: cellPhone,
+                        email: email,
+                        zone: zone,
+                        type: type,
+                        password: password
+                    }).then(async e => {
+                        document.getElementById('load_modal').classList.remove('show');
+                        document.getElementById('modal_container').classList.remove('show');
+                        alert('User created');
+                        await allUsers();
+                    });
+                } else {
+                    alert('The email is already registered');
+                }
             } else {
                 alert('Incorrect password');
             }
