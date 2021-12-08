@@ -11,7 +11,17 @@ async function loginAutenticate() {
             if (res.id !== null) {
                 sessionStorage.setItem('id', res.id);
                 alert('Welcome');
-                doOpen('pages/tables.html');
+                switch (res.type) {
+                    case 'ADMIN':
+                        doOpen('pages/tablesAdmin.html');
+                        break;
+                    case 'ASE':
+                        doOpen('pages/tablesAdmin.html');
+                        break;
+                    case 'COORD':
+                        doOpen('pages/tablesAdmin.html');
+                        break;
+                }
             } else {
                 alert('The email or password may be wrong')
             }
@@ -21,5 +31,4 @@ async function loginAutenticate() {
     } else {
         alert('Verify information');
     }
-
 }

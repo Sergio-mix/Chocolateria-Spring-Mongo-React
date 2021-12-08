@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/user/")
 public class UserRest {
 

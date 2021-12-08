@@ -1,6 +1,6 @@
 const ID = sessionStorage.getItem('id');
 const EMAIL = sessionStorage.getItem('email');
-user();
+// user();
 
 async function user() {
     if (ID !== '' && ID !== null) {
