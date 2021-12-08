@@ -42,7 +42,7 @@ public class UserService {
 
     public User createUser(User user) {
         Optional<User> userM = userRepository.findById(user.getId());
-        if (userM.isEmpty()) {
+        if (userM.isEmpty() && !existsEmail(user.getEmail())) {
             return userRepository.save(user);
         }else {
             return null;
