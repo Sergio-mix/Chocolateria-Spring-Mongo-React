@@ -52,7 +52,7 @@ public class UserRest {
         userService.deleteUser(id);
     }
 
-    @GetMapping("get/{id}")
+    @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     private User getUser(@PathVariable("id") Long id) {
         return userService.getUserById(id);

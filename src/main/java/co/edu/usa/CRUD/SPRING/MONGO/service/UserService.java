@@ -1,6 +1,7 @@
 package co.edu.usa.CRUD.SPRING.MONGO.service;
 
 import co.edu.usa.CRUD.SPRING.MONGO.exception.ResourceNotFoundException;
+import co.edu.usa.CRUD.SPRING.MONGO.model.Order;
 import co.edu.usa.CRUD.SPRING.MONGO.model.User;
 import co.edu.usa.CRUD.SPRING.MONGO.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,11 @@ public class UserService {
     }
 
     public User createUser(User user) {
-        Optional<User> userM = userRepository.findById(user.getId());
-        if (userM.isEmpty() && !existsEmail(user.getEmail())) {
+        if (user.getId() == null)
+            user.setId(getNext());
+        if (!existsEmail(user.getEmail())) {
             return userRepository.save(user);
-        }else {
+        } else {
             return null;
         }
     }
@@ -80,6 +82,12 @@ public class UserService {
     public User getUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
         return user.orElse(null);
+    }
+
+    public Long getNext() {
+        User last = userRepository.findTopByOrderByIdDesc();
+        long lastNum = last.getId();
+        return lastNum + 1;
     }
 }
 

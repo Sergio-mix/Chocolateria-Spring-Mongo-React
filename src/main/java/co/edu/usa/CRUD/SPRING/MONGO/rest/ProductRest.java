@@ -39,7 +39,7 @@ public class ProductRest {
         ProductService.deleteProduct(id);
     }
 
-    @GetMapping("get/{id}")
+    @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     private Product getProduct(@PathVariable("id") String id) {
        return ProductService.getProductById(id);
