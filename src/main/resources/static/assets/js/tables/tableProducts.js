@@ -1,6 +1,4 @@
-allProducts();
-
-async function allProducts() {
+async function allProducts(status) {
     const request = await fetch(all_product, {
         method: 'GET',
         headers: {
@@ -14,21 +12,32 @@ async function allProducts() {
     const products = await request.json();
     let listHtml = '';
     for (let product of products) {
-        let fila =
-            "<tr><td> " + product.reference + "</td>" +
-            "<td> " + product.category + "</td>" +
-            "<td> " + product.description + "</td>" +
-            "<td> " + product.availability + "</td>" +
-            "<td> " + product.price + "</td>" +
-            "<td> " + product.quantity + "</td>" +
-            "<td> " + product.photography + "</td>" +
-            "<td>" +
-            "<button style=\"color: #ffd025\" class=\"btn btn-sm btn-neutral\" " +
-            "onclick='updateProduct(" + JSON.stringify(product.reference) + ")'>Update</button>" +
-            "<button style=\"color: #dc4d5c\" class=\"btn btn-sm btn-neutral\" " +
-            "onclick='deleteProduct(" + JSON.stringify(product.reference) + ")'>" +
-            "Remove</button>" +
-            "</td></tr>";
+        let fila = '';
+        if (status) {
+            fila = "<tr><td> " + product.reference + "</td>" +
+                "<td> " + product.category + "</td>" +
+                "<td> " + product.description + "</td>" +
+                "<td> " + product.availability + "</td>" +
+                "<td> " + product.price + "</td>" +
+                "<td> " + product.quantity + "</td>" +
+                "<td> " + product.photography + "</td>" +
+                "<td>" +
+                "<button style=\"color: #ffd025\" class=\"btn btn-sm btn-neutral\" " +
+                "onclick='updateProduct(" + JSON.stringify(product.reference) + ")'>Update</button>" +
+                "<button style=\"color: #dc4d5c\" class=\"btn btn-sm btn-neutral\" " +
+                "onclick='deleteProduct(" + JSON.stringify(product.reference) + ")'>" +
+                "Remove</button>" +
+                "</td>" +
+                "</tr>";
+        } else {
+            fila = "<tr><td> " + product.reference + "</td>" +
+                "<td> " + product.category + "</td>" +
+                "<td> " + product.description + "</td>" +
+                "<td> " + product.price + "</td>" +
+                "<td> " + product.quantity + "</td>" +
+                "<td> " + product.photography + "</td>" +
+                "</tr>";
+        }
 
         listHtml += fila;
     }
@@ -189,7 +198,7 @@ function registerProduct() {
     }
 }
 
-function fromProduct(title)     {
+function fromProduct(title) {
     document.getElementById('modal_container').classList.add('show');
     document.getElementById('titleModal').innerText = title;
     document.getElementById('containerModal').innerHTML =

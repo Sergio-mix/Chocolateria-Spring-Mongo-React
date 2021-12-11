@@ -284,7 +284,7 @@ function fromUser(title) {
         '                        <label for="txtType" >Type</label>\n' +
         '                        <select class="form-control" id="txtType">' +
         '                            <option value="COORD">Coordinadores de Zona</option>' +
-        '                            <option value="ADVISER">Asesores Comerciales</option>' +
+        '                            <option value="ASE">Asesores Comerciales</option>' +
         '                        </select>\n' +
         '                    </div>\n' +
         '                </div>' +

@@ -7,7 +7,7 @@ async function user() {
         let user = await queryGD('GET', userByid + ID);
 
         if (user !== undefined) {
-            document.getElementById('nameNav').innerText = "Hello " + user.name;
+            document.getElementById('nameNav').innerText = "HELLO " + user.name;
             sessionStorage.setItem('email', user.email);
         } else {
             doOpen('../index.html');

@@ -28,7 +28,7 @@ function ini() {
             doOpen('pages/tablesAdmin.html');
             break;
         case 'ASE':
-            doOpen('pages/tablesAse.html');
+            doOpen('pages/tablesAseProducts.html');
             break;
         case 'COORD':
             doOpen('pages/tablesCoord.html');

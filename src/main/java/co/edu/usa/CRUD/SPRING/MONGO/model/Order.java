@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.Date;
 import java.util.Map;
 
@@ -29,4 +30,6 @@ public class Order {
     private Map<String, Product> products;
 
     private Map<String, Integer> quantities;
+
+
 }
