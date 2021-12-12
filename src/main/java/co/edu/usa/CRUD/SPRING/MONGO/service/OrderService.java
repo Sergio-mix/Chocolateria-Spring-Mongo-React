@@ -3,12 +3,12 @@ package co.edu.usa.CRUD.SPRING.MONGO.service;
 
 import co.edu.usa.CRUD.SPRING.MONGO.exception.ResourceNotFoundException;
 import co.edu.usa.CRUD.SPRING.MONGO.model.Order;
+import co.edu.usa.CRUD.SPRING.MONGO.model.Product;
 import co.edu.usa.CRUD.SPRING.MONGO.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class OrderService {
@@ -56,7 +56,11 @@ public class OrderService {
 
     public Long getNext() {
         Order last = orderRepository.findTopByOrderByIdDesc();
-        long lastNum = last.getId();
-        return lastNum + 1;
+        if (last != null) {
+            long lastNum = last.getId();
+            return lastNum + 1;
+        } else {
+            return 1L;
+        }
     }
 }

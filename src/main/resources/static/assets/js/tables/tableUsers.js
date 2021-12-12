@@ -202,7 +202,7 @@ function registerUser() {
                 let validation = await queryGD('GET', validate_Email + email);
                 if (validation === false) {
                     await queryPT('POST', add_user, {
-                        id: +identification,
+                        id: null,
                         identification: identification,
                         name: name,
                         address: address,

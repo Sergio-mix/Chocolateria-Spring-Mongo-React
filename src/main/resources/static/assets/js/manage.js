@@ -2,7 +2,7 @@ const API = 'http://localhost:8080/';
 // const API = 'http://132.226.37.129:8081/';
 
 const authenticate = API + 'api/user/';
-const userByid = API + 'api/user/get/';
+const userByid = API + 'api/user/';
 const all_user = API + 'api/user/all';
 const remove_user = API + 'api/user/'
 const update_user = API + 'api/user/update/';
@@ -13,8 +13,15 @@ const validate_Email = API + 'api/user/emailexist/';
 const add_product = API + 'api/chocolate/new';
 const all_product = API + 'api/chocolate/all';
 const remove_product = API + 'api/chocolate/'
-const productByid = API + 'api/chocolate/get/';
+const productByid = API + 'api/chocolate/';
 const product_update = API + 'api/chocolate/update';
+
+const add_order = API + 'api/order/new';
+const all_order = API + 'api/order/all';
+const all_order_zone = API + 'api/order/zona';
+const remove_oreder = API + 'api/order/'
+const orderByid = API + 'api/order/';
+const order_update = API + 'api/order/update';
 
 const REGEX = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 

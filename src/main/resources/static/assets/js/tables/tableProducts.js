@@ -1,4 +1,4 @@
-async function allProducts(status) {
+async function allProducts() {
     const request = await fetch(all_product, {
         method: 'GET',
         headers: {
@@ -12,32 +12,21 @@ async function allProducts(status) {
     const products = await request.json();
     let listHtml = '';
     for (let product of products) {
-        let fila = '';
-        if (status) {
-            fila = "<tr><td> " + product.reference + "</td>" +
-                "<td> " + product.category + "</td>" +
-                "<td> " + product.description + "</td>" +
-                "<td> " + product.availability + "</td>" +
-                "<td> " + product.price + "</td>" +
-                "<td> " + product.quantity + "</td>" +
-                "<td> " + product.photography + "</td>" +
-                "<td>" +
-                "<button style=\"color: #ffd025\" class=\"btn btn-sm btn-neutral\" " +
-                "onclick='updateProduct(" + JSON.stringify(product.reference) + ")'>Update</button>" +
-                "<button style=\"color: #dc4d5c\" class=\"btn btn-sm btn-neutral\" " +
-                "onclick='deleteProduct(" + JSON.stringify(product.reference) + ")'>" +
-                "Remove</button>" +
-                "</td>" +
-                "</tr>";
-        } else {
-            fila = "<tr><td> " + product.reference + "</td>" +
-                "<td> " + product.category + "</td>" +
-                "<td> " + product.description + "</td>" +
-                "<td> " + product.price + "</td>" +
-                "<td> " + product.quantity + "</td>" +
-                "<td> " + product.photography + "</td>" +
-                "</tr>";
-        }
+        let fila = "<tr><td> " + product.reference + "</td>" +
+            "<td> " + product.category + "</td>" +
+            "<td> " + product.description + "</td>" +
+            "<td> " + product.availability + "</td>" +
+            "<td> " + product.price + "</td>" +
+            "<td> " + product.quantity + "</td>" +
+            "<td> " + product.photography + "</td>" +
+            "<td>" +
+            "<button style=\"color: #ffd025\" class=\"btn btn-sm btn-neutral\" " +
+            "onclick='updateProduct(" + JSON.stringify(product.reference) + ")'>Update</button>" +
+            "<button style=\"color: #dc4d5c\" class=\"btn btn-sm btn-neutral\" " +
+            "onclick='deleteProduct(" + JSON.stringify(product.reference) + ")'>" +
+            "Remove</button>" +
+            "</td>" +
+            "</tr>";
 
         listHtml += fila;
     }
@@ -59,7 +48,7 @@ function deleteProduct(reference) {
         '                  </div>' +
         '            <div class="col-12">\n' +
         '                    <button id="onClickUserRemove" type="button" class="btn btn-primary">Remove</button>\n' +
-        '                    <button class="btn btn-outline-primary btn-sm " onclick="closeModal()">Close</button>\n' +
+        '                    <button class="btn btn-outline-primary btn-sm " onclick="closeProduct()">Close</button>\n' +
         '             </div>' +
         '</div>';
 
@@ -252,7 +241,7 @@ function fromProduct(title) {
         '                </div>' +
         '            <div class="col-12">\n' +
         '                    <button id="onClickUpdateUser" type="button" class="btn btn-primary">' + title + '</button>\n' +
-        '                    <button class="btn btn-outline-primary btn-sm " onclick="closeModal()">Close</button>\n' +
+        '                    <button class="btn btn-outline-primary btn-sm " onclick="closeProduct()">Close</button>\n' +
         '             </div>' +
         '</div>';
 }

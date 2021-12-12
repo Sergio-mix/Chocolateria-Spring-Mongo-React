@@ -1,14 +1,17 @@
 package co.edu.usa.CRUD.SPRING.MONGO.rest;
 
 import co.edu.usa.CRUD.SPRING.MONGO.model.Order;
+import co.edu.usa.CRUD.SPRING.MONGO.model.Product;
 import co.edu.usa.CRUD.SPRING.MONGO.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/order/")
 public class OrderRest {
 
@@ -17,7 +20,7 @@ public class OrderRest {
 
     @PostMapping("new")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createOrder(Order order) {
+    public void createOrder(@RequestBody Order order) {
         orderService.createOrder(order);
     }
 

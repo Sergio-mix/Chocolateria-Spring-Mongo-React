@@ -86,8 +86,12 @@ public class UserService {
 
     public Long getNext() {
         User last = userRepository.findTopByOrderByIdDesc();
-        long lastNum = last.getId();
-        return lastNum + 1;
+        if (last != null) {
+            long lastNum = last.getId();
+            return lastNum + 1;
+        } else {
+            return 1L;
+        }
     }
 }
 

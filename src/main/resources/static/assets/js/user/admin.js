@@ -1,1 +1,1 @@
-allProducts(true);
+allProducts();
