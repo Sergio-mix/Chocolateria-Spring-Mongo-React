@@ -80,95 +80,32 @@
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-4">
                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 flex-column-reverse">
-                            <h6 class="text-white text-capitalize ps-3">Users: <strong id="numberUsers"></strong></h6>
-                            <div class="align-items-center container-md">
-                                <button onclick="registerUser()" class="btn btn-white">Register</button>
-                            </div>
+                            <h6 class="text-white text-capitalize ps-3">Order: <strong id="numberOrder"></strong></h6>
                         </div>
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0" id="tableUsers">
+                            <table class="table align-items-center mb-0" id="tableOrder">
                                 <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Identification
+                                        ID
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Name
+                                        NAMES
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Address
+                                        EMAIL
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        CellPhone
+                                        DATE
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Email
+                                        ID ORDER
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Zone
+                                        STATUS
                                     </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Type
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        #
-                                    </th>
-                                    <th class="text-secondary opacity-7"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <div class="card my-4">
-                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-4">
-                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 flex-column-reverse">
-                            <h6 class="text-white text-capitalize ps-3">Products: <strong id="numberProducts"></strong></h6>
-                            <div class="align-items-center container-md">
-                                <button onclick="registerProduct()" class="btn btn-white">Register</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body px-0 pb-2">
-                        <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0" id="tableProducts">
-                                <thead>
-                                <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Reference
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Category
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Description
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Availability
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Price
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Quantity
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Photography
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        #
-                                    </th>
-                                    <th class="text-secondary opacity-7"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -279,8 +216,7 @@
 </script>
 <script src="../assets/js/manage.js"></script>
 <script src="../assets/js/user.js"></script>
-<script src="../assets/js/tables/tableUsers.js"></script>
-<script src="../assets/js/tables/tableProducts.js"></script>
+<script src="../assets/js/coord.js"></script>
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/core/bootstrap.min.js"></script>
 <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
