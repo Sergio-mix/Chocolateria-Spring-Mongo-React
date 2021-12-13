@@ -26,7 +26,7 @@ const Login = (props) => {
 
         if (email !== '' && password !== '') {
             if (REGEX.test(email)) {
-                let res = await user_login(email,password);
+                let res = await user_login(email, password);
                 if (res.id !== null) {
                     sessionStorage.setItem('user', JSON.stringify(res));
                     profile();
@@ -39,6 +39,12 @@ const Login = (props) => {
         } else {
             alert('Verify information');
         }
+    }
+
+    if(sessionStorage.getItem('user')!== null){
+        profile();
+    }else {
+        sessionStorage.clear();
     }
 
     return (
@@ -60,19 +66,18 @@ const Login = (props) => {
                                                 <div className="mb-3">
                                                     <input type="email" className="form-control" placeholder="Email"
                                                            aria-label="Email" aria-describedby="email-addon"
-                                                           ref={txtEmail}/>
+                                                           ref={txtEmail} required/>
                                                 </div>
                                                 <label>Password</label>
                                                 <div className="mb-3">
                                                     <input type="password" className="form-control"
                                                            placeholder="Password"
                                                            aria-label="Password" aria-describedby="password-addon"
-                                                           ref={txtPassword}/>
+                                                           ref={txtPassword} required/>
                                                 </div>
                                                 <div className="text-center">
-                                                    <button type="button"
-                                                            className="btn bg-gradient-info w-100 mt-4 mb-0"
-                                                            onClick={login}>Sign in
+                                                    <button type="button" onClick={login}
+                                                            className="btn bg-gradient-info w-100 mt-4 mb-0">Sign in
                                                     </button>
                                                 </div>
                                             </form>

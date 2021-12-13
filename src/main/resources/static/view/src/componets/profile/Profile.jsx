@@ -1,12 +1,11 @@
 import React, {Fragment, useState, useRef} from 'react';
 import ReactDOM from "react-dom";
 import Login from "../login";
-import {queryGD, userByid,} from '../../js/manage';
 import FormData from "./FormData";
 
 const Profile = (props) => {
 
-   const us = JSON.parse(sessionStorage.getItem('user'))
+    const us = JSON.parse(sessionStorage.getItem('user'))
 
     const login = () => {
         const element = (
@@ -19,6 +18,56 @@ const Profile = (props) => {
             document.getElementById('root')
         );
         sessionStorage.clear();
+    }
+
+    const admin = () => {
+        const element = (
+            <Fragment>
+                <Login/>
+            </Fragment>
+        );
+        ReactDOM.render(
+            element,
+            document.getElementById('root')
+        );
+    }
+
+    const ase = () => {
+        const element = (
+            <Fragment>
+                <Login/>
+            </Fragment>
+        );
+        ReactDOM.render(
+            element,
+            document.getElementById('root')
+        );
+    }
+
+    const coord = () => {
+        const element = (
+            <Fragment>
+                <Login/>
+            </Fragment>
+        );
+        ReactDOM.render(
+            element,
+            document.getElementById('root')
+        );
+    }
+
+    const sessionUser = () => {
+        switch (us.type) {
+            case 'ADMIN':
+                admin();
+                break;
+            case 'ASE':
+                ase();
+                break;
+            case 'COORD':
+                coord();
+                break;
+        }
     }
 
     return (
@@ -34,9 +83,9 @@ const Profile = (props) => {
                                 <div className="page-header min-height-200 border-radius-xl mt-2"
                                      style={{backgroundImage: "url(assets/img/curved-images/curved14.jpg)"}}>
                                 </div>
-                                <FormData name={us.name} email={us.email} zone = {us.zone}/>
+                                <FormData name={us.name} email={us.email} zone={us.zone}/>
                                 <div className=" mt-3 mb-3 flex-row align-items-center m-auto">
-                                    <button className="btn bg-gradient-info m-2">Get into</button>
+                                    <button className="btn bg-gradient-info m-2" onClick={sessionUser}>Get into</button>
                                     <button className="btn btn-light-rounded m-2" onClick={login}>Close</button>
                                 </div>
                             </div>
