@@ -1,14 +1,48 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState, useRef} from 'react';
+
+import ReactDOM from "react-dom";
+import Profile from "./profile/Profile";
+import {REGEX, user_login} from '../js/manage';
+
 
 const Login = (props) => {
-    const login = async function () {
-        fetch('http://example.com/movies.json')
-            .then(response => response.json())
-            .then(data => console.log(data));
+    const txtEmail = useRef();
+    const txtPassword = useRef();
+
+    const profile = () => {
+        const element = (
+            <Fragment>
+                <Profile/>
+            </Fragment>
+        );
+        ReactDOM.render(element,
+            document.getElementById('root')
+        );
+    }
+
+    const login = async () => {
+        let email = txtEmail.current.value;
+        let password = txtPassword.current.value;
+
+        if (email !== '' && password !== '') {
+            if (REGEX.test(email)) {
+                let res = await user_login(email,password);
+                if (res.id !== null) {
+                    sessionStorage.setItem('user', JSON.stringify(res));
+                    profile();
+                } else {
+                    alert('The email or password may be wrong')
+                }
+            } else {
+                alert('Check the mail');
+            }
+        } else {
+            alert('Verify information');
+        }
     }
 
     return (
-        <div>
+        <Fragment>
             <main className="main-content  mt-0">
                 <section>
                     <div className="page-header min-vh-75">
@@ -26,14 +60,14 @@ const Login = (props) => {
                                                 <div className="mb-3">
                                                     <input type="email" className="form-control" placeholder="Email"
                                                            aria-label="Email" aria-describedby="email-addon"
-                                                           id={"txtEmail"}/>
+                                                           ref={txtEmail}/>
                                                 </div>
                                                 <label>Password</label>
                                                 <div className="mb-3">
                                                     <input type="password" className="form-control"
                                                            placeholder="Password"
                                                            aria-label="Password" aria-describedby="password-addon"
-                                                           id={"txtPassword"}/>
+                                                           ref={txtPassword}/>
                                                 </div>
                                                 <div className="text-center">
                                                     <button type="button"
@@ -58,14 +92,13 @@ const Login = (props) => {
                 </section>
             </main>
 
-            <script src="../../public/assets/js/manage.js"/>
             <script src="../../public/assets/js/core/popper.min.js"/>
             <script src="../../public/assets/js/core/bootstrap.min.js"/>
             <script src="../../public/assets/js/plugins/perfect-scrollbar.min.js"/>
             <script src="../../public/assets/js/plugins/smooth-scrollbar.min.js"/>
             <script async defer src="https://buttons.github.io/buttons.js"/>
             <script src="../../public/assets/js/soft-ui-dashboard.min.js?v=1.0.3"/>
-        </div>
+        </Fragment>
     );
 }
 
