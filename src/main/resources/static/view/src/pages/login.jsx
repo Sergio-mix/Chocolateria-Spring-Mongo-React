@@ -1,24 +1,13 @@
 import React, {Fragment, useState, useRef} from 'react';
 
-import ReactDOM from "react-dom";
-import Profile from "./profile/Profile";
-import {REGEX, user_login} from '../js/manage';
-
+import {REGEX, user_login, doOpen} from '../js/manage';
+import Footer from "../componets/Footer";
 
 const Login = (props) => {
+    sessionStorage.clear();
+
     const txtEmail = useRef();
     const txtPassword = useRef();
-
-    const profile = () => {
-        const element = (
-            <Fragment>
-                <Profile/>
-            </Fragment>
-        );
-        ReactDOM.render(element,
-            document.getElementById('root')
-        );
-    }
 
     const login = async () => {
         let email = txtEmail.current.value;
@@ -28,8 +17,7 @@ const Login = (props) => {
             if (REGEX.test(email)) {
                 let res = await user_login(email, password);
                 if (res.id !== null) {
-                    sessionStorage.setItem('user', JSON.stringify(res));
-                    profile();
+                    doOpen("/profile")
                 } else {
                     alert('The email or password may be wrong')
                 }
@@ -39,12 +27,6 @@ const Login = (props) => {
         } else {
             alert('Verify information');
         }
-    }
-
-    if(sessionStorage.getItem('user')!== null){
-        profile();
-    }else {
-        sessionStorage.clear();
     }
 
     return (
@@ -88,7 +70,7 @@ const Login = (props) => {
                                     <div className="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
                                         <div
                                             className="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
-                                            style={{backgroundImage: "url(assets/img/curved-images/curved6.jpg)"}}/>
+                                            style={{backgroundImage: "url(https://fondosmil.com/fondo/52686.jpg)"}}/>
                                     </div>
                                 </div>
                             </div>
@@ -96,13 +78,10 @@ const Login = (props) => {
                     </div>
                 </section>
             </main>
-
-            <script src="../../public/assets/js/core/popper.min.js"/>
-            <script src="../../public/assets/js/core/bootstrap.min.js"/>
-            <script src="../../public/assets/js/plugins/perfect-scrollbar.min.js"/>
-            <script src="../../public/assets/js/plugins/smooth-scrollbar.min.js"/>
-            <script async defer src="https://buttons.github.io/buttons.js"/>
-            <script src="../../public/assets/js/soft-ui-dashboard.min.js?v=1.0.3"/>
+            <Footer info={{
+                name: "Product store",
+                boxs: [{name: "GitHub", url: "https://github.com/Sergio-mix", icon: "github", status: ""}]
+            }}/>
         </Fragment>
     );
 }

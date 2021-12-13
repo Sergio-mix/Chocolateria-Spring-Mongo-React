@@ -1,7 +1,8 @@
 const API = 'http://localhost:8080/';
 //const API = 'http://129.158.59.187:8000/';
 
-export const ID = sessionStorage.getItem('id');
+const ID = sessionStorage.getItem('id');
+export const USER = JSON.parse(sessionStorage.getItem('user'));
 
 //Login
 const authenticate = API + 'api/user/';
@@ -38,6 +39,8 @@ export function user_login(email, password) {
                     'Content-Type': 'application/json'
                 }
             }).then(res => res.json()).then(res => {
+                sessionStorage.setItem('id', res.id);
+                sessionStorage.setItem('user', JSON.stringify(res));
                 return res;
             }).catch(err => {
                 console.log(err);
@@ -78,4 +81,9 @@ export function queryGD(type, url) {
             })
         );
     });
+}
+
+export function doOpen(url) {
+    document.location.target = "_blank";
+    document.location.href = url;
 }
