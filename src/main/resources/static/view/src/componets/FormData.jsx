@@ -8,7 +8,7 @@ const FormData = (props) => {
                     <div className="col-auto my-auto">
                         <div className="h-100 align-items-center text-center">
                             <h5 className="mb-1">{props.name}</h5>
-                            <p className="mb-0 font-weight-normal text-sm"/>
+                            <p className="mb-0 font-weight-normal text-sm">{props.type}</p>
                         </div>
                     </div>
                 </div>

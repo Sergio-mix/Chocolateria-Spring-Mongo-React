@@ -1,7 +1,8 @@
 import React, {Fragment, useState, useRef} from 'react';
 
-import {REGEX, user_login, doOpen} from '../js/manage';
+import {REGEX, doOpen} from '../js/manage';
 import Footer from "../componets/Footer";
+import UserService from '../services/UserService';
 
 const Login = (props) => {
     sessionStorage.clear();
@@ -15,12 +16,17 @@ const Login = (props) => {
 
         if (email !== '' && password !== '') {
             if (REGEX.test(email)) {
-                let res = await user_login(email, password);
-                if (res.id !== null) {
-                    doOpen("/profile")
-                } else {
-                    alert('The email or password may be wrong')
-                }
+                UserService.authenticate(email, password)
+                    .then((response) => {
+                        if (response.data.id !== null) {
+                            sessionStorage.setItem("user", JSON.stringify(response.data));
+                            doOpen("/profile")
+                        } else {
+                            alert('The email or password may be wrong')
+                        }
+                    }).catch(e => {
+                    console.log(e);
+                });
             } else {
                 alert('Check the mail');
             }

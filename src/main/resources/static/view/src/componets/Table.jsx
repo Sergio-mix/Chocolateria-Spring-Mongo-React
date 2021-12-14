@@ -1,7 +1,6 @@
 import React, {Fragment} from 'react';
 
 const Table = (props) => {
-
     return (
         <Fragment>
             <div className="row">
@@ -17,10 +16,12 @@ const Table = (props) => {
                                     <tr>
                                         {props.columns.map((col, index) => (
                                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                                                key={index}
-                                                scope="col">{col.column}</th>
+                                                key={index} scope="col">{col.column}</th>
                                         ))}
-                                        <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+
+                                        <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            scope="col">#
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -31,12 +32,7 @@ const Table = (props) => {
                                                     <td key={index}>{item[col.value]}</td>
                                                 ))}
                                                 <td>
-                                                    {props.onEdit && (
-                                                        <button onClick={ev => props.onEdit(item)}
-                                                                className="btn btn-warning">Editar</button>)}
-                                                    {props.onDelete && (
-                                                        <button onClick={ev => props.onDelete(item)}
-                                                                className="btn btn-danger">Eliminar</button>)}
+                                                    {props.onEditUser}
                                                 </td>
                                             </tr>
                                         ))
