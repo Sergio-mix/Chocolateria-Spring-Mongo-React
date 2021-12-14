@@ -5,6 +5,7 @@ import Container from "../componets/Container";
 import Table from "../componets/Table";
 import UserService from "../services/UserService";
 import ProductService from "../services/ProductService";
+import FromData from "../componets/FromData";
 
 const Admin = (props) => {
     if (USER === null) {
@@ -36,17 +37,17 @@ const Admin = (props) => {
         }];
 
     const [userList, setUserList] = useState([]);
-    useEffect(() => {
-        const tableDataUser = () => {
-            UserService.getAll()
-                .then((response) => {
-                    setUserList(response.data);
-                    console.log(response.data);
-                }).catch(e => {
-                console.log(e);
-            });
-        }
 
+    const tableDataUser = () => {
+        UserService.getAll()
+            .then((response) => {
+                setUserList(response.data);
+            }).catch(e => {
+            console.log(e);
+        });
+    }
+
+    useEffect(() => {
         tableDataUser();
     }, [])
     const [productList, setProductList] = useState([]);
@@ -80,7 +81,6 @@ const Admin = (props) => {
             ProductService.getAll()
                 .then((response) => {
                     setProductList(response.data);
-                    console.log(response.data);
                 }).catch(e => {
                 console.log(e);
             });
@@ -89,7 +89,43 @@ const Admin = (props) => {
         tableDataProduct();
     }, [])
 
-    const onEditUser = (id) => {
+    const onRegisterUser = (user) => {
+        let json = {};
+        for (let val of user) {
+            json[val.name] = val.value;
+
+            if (val.value === '') {
+                alert('Invalid input values');
+                return;
+            }
+        }
+
+        UserService.save(json)
+            .then((response) => {
+                tableDataUser();
+                alert('User created');
+            }).catch(e => {
+            console.log(e);
+        });
+    }
+
+    const onEditUser = (user) => {
+
+    }
+
+    const onRemoveUser = (user) => {
+
+    }
+
+    const onRegisterProduct = () => {
+
+    }
+
+    const onEditProduct = (user) => {
+
+    }
+
+    const onRemoveProduct = (user) => {
 
     }
 
@@ -100,11 +136,86 @@ const Admin = (props) => {
                 boxs: [{name: "GitHub", url: "https://github.com/Sergio-mix", icon: "github", status: ""}]
             }}
                        nav={[{name: "table", url: "/admin", icon: "table", status: "shadow"}]}
-                       table={[<Table name="Users" data={userList} columns={columnsUser} onEditUser={[
-                           onEditUser && (
-                               <button onClick={ev => onEditUser()} className="btn btn-warning">Editar</button>)]}/>,
+                       table={[<Table name="Users"
+                                      data={userList} columns={columnsUser}
+                                      event={["update", "remove"]}
+                                      onEdit={onEditUser} onDelete={onRemoveUser}
+                                      onDetail={null}
+                                      add={{
+                                          status: true,
+                                          name: "Register",
+                                          form: <FromData event={onRegisterUser}
+                                                          data={[
+                                                              {
+                                                                  size: "6",
+                                                                  title: "Identification",
+                                                                  name: "identification",
+                                                                  status: "required",
+                                                                  type: "number"
+                                                              },
+                                                              {
+                                                                  size: "6",
+                                                                  title: "Name",
+                                                                  name: "name",
+                                                                  status: "required",
+                                                                  type: "text"
+                                                              },
+                                                              {
+                                                                  size: "6",
+                                                                  title: "Address",
+                                                                  name: "address",
+                                                                  status: "required",
+                                                                  type: "text"
+                                                              },
+                                                              {
+                                                                  size: "6",
+                                                                  title: "CellPhone",
+                                                                  name: "cellPhone",
+                                                                  status: "required",
+                                                                  type: "number"
+                                                              },
+                                                              {
+                                                                  size: "6",
+                                                                  title: "Email",
+                                                                  name: "email",
+                                                                  status: "required",
+                                                                  type: "email"
+                                                              },
+                                                              {
+                                                                  size: "6",
+                                                                  title: "Password",
+                                                                  name: "password ",
+                                                                  status: "required",
+                                                                  type: "password"
+                                                              },
+                                                              {
+                                                                  size: "6",
+                                                                  title: "Zone",
+                                                                  name: "zone",
+                                                                  status: "required",
+                                                                  type: "text"
+                                                              },
+                                                              {
+                                                                  size: "6",
+                                                                  title: "Type",
+                                                                  name: "type",
+                                                                  type: "select",
+                                                                  option: [{
+                                                                      value: "COORD",
+                                                                      name: "Coordinadores de Zona"
+                                                                  }, {
+                                                                      value: "ASE",
+                                                                      name: "Asesores Comerciales"
+                                                                  }]
+                                                              },
+                                                          ]
+                                                          }/>
+                                      }}/>,
 
-                           <Table name="Products" data={productList} columns={columnsProduct}/>]}/>
+                           <Table name="Products" data={productList} columns={columnsProduct}
+                                  event={["update", "remove"]} onEdit={onEditProduct} onDelete={onRemoveProduct}
+                                  onDetail={null}
+                                  add={{status: true, name: "Register"}}/>]}/>
         </Fragment>
     );
 }

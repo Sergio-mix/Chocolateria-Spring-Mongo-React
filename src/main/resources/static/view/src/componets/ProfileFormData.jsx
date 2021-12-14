@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 
-const FormData = (props) => {
+const ProfileFormData = (props) => {
     return (
         <Fragment>
             <div className="card card-body mx-3 mx-md-4 mt-n6 align-items-center">
@@ -31,4 +31,4 @@ const FormData = (props) => {
     );
 }
 
-export default FormData;
+export default ProfileFormData;

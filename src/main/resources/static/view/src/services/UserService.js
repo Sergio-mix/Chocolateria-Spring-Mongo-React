@@ -12,10 +12,15 @@ const get = (id) => {
     return http.get(`/user/${id}`);
 }
 
+const save = (data) => {
+    return http.post(`/user/new`, data);
+}
+
 const exportedObject = {
     getAll,
     get,
-    authenticate
+    authenticate,
+    save
 }
 export default exportedObject;
 

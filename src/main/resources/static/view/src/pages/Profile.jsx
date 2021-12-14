@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import FormData from "../componets/FormData";
+import ProfileFormData from "../componets/ProfileFormData";
 import {doOpen, USER} from '../js/manage';
 
 const Profile = (props) => {
@@ -35,7 +35,7 @@ const Profile = (props) => {
                                 <div className="page-header min-height-200 border-radius-xl mt-2"
                                      style={{backgroundImage: "url(assets/img/curved-images/curved14.jpg)"}}>
                                 </div>
-                                <FormData name={USER.name} email={USER.email} zone={USER.zone} type={USER.type}/>
+                                <ProfileFormData name={USER.name} email={USER.email} zone={USER.zone} type={USER.type}/>
                                 <div className=" mt-3 mb-3 flex-row align-items-center m-auto">
                                     <button className="btn bg-gradient-info m-2" onClick={sessionUser}>Get into</button>
                                     <button className="btn btn-light-rounded m-2" onClick={login}>Close</button>

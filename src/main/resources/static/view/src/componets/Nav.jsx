@@ -11,7 +11,7 @@ const Nav = (props) => {
     }
     return (
         <Fragment>
-            <nav className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+            <nav className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow border-radius-xl"
                  navbar-scroll="true">
                 <div className="container-fluid py-1 px-3">
                     <nav aria-label="breadcrumb">
