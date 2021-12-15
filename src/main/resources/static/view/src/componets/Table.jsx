@@ -1,24 +1,37 @@
 import React, {Fragment} from 'react';
 import ModalForm from "./ModalForm";
+import FromData from "./FromData";
 
 const Table = (props) => {
     let add = [];
     if (props.add.status) {
-        add.push(<ModalForm title={props.add.name} form={props.add.form} event={props.add.event}/>)
+        add.push(<ModalForm title={props.add.name}
+                            form={<FromData buttonName={props.add.form.buttonName} event={props.add.form.event}
+                                            items={props.add.form.data}
+                                            data={null}
+                                            clear={props.add.form.clear}/>}
+                            event={props.add.event}/>)
     }
 
     function onEvent(item) {
         let event = [];
         if (props.event.indexOf('update') !== -1) {
-            event.push(props.onEdit && (
-                <button onClick={ev => props.onEdit(item)}
-                        className="btn btn-simple m-2 text-color-yellow">Editar</button>));
+            event.push(<ModalForm title={props.update.name}
+                                  form={<FromData buttonName={props.update.form.buttonName}
+                                                  event={props.update.form.event}
+                                                  items={props.update.form.data}
+                                                  data={item}
+                                                  typeId={props.update.form.typeId}
+                                                  clear={props.update.form.clear}/>}
+                                  event={props.update.event}
+                                  color={props.update.color}/>)
         }
 
         if (props.event.indexOf('remove') !== -1) {
-            event.push(props.onDelete && (
-                <button onClick={ev => props.onDelete(item)}
-                        className="btn btn-simple m-2 text-color-red">Eliminar</button>));
+            event.push(props.remove.event && (
+                <button onClick={ev => props.remove.event(item)}
+                        className="btn btn-simple m-2 text-color-red">Eliminar</button>
+            ));
         }
 
         if (props.event.indexOf('detail') !== -1) {

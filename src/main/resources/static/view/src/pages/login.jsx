@@ -25,7 +25,7 @@ const Login = (props) => {
                             alert('The email or password may be wrong')
                         }
                     }).catch(e => {
-                    console.log(e);
+                    alert("Error in a connection");
                 });
             } else {
                 alert('Check the mail');

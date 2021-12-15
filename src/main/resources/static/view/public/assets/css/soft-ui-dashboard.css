@@ -24936,6 +24936,10 @@ pre[class*="language-"] {
     color: #e13c3c;
 }
 
+.text-color-green {
+    color: #5def97;
+}
+
 .modalcontainer {
     display: flex;
     background-color: rgba(77, 77, 77, 0.3);

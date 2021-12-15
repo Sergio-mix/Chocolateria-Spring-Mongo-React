@@ -19,6 +19,10 @@ public class UserService {
         return userRepository.existsEmail(email) != null;
     }
 
+    public Boolean existsIdentification(String identification) {
+        return userRepository.existsIdentification(identification) != null;
+    }
+
     public User authenticate(String email, String password) {
         User us = userRepository.authenticate(email, password);
         if (us == null) {
@@ -44,7 +48,8 @@ public class UserService {
     public User createUser(User user) {
         if (user.getId() == null)
             user.setId(getNext());
-        if (!existsEmail(user.getEmail())) {
+        if (!existsEmail(user.getEmail())
+                && !existsIdentification(user.getIdentification())) {
             return userRepository.save(user);
         } else {
             return null;

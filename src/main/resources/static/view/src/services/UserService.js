@@ -4,6 +4,10 @@ const authenticate = (email, password) => {
     return http.get(`/user/${email}/${password}`);
 }
 
+const existsEmail = (email) => {
+    return http.get(`/user/emailexist/${email}`);
+}
+
 const getAll = () => {
     return http.get("/user/all");
 }
@@ -16,11 +20,23 @@ const save = (data) => {
     return http.post(`/user/new`, data);
 }
 
+const update = (data) => {
+    return http.put(`/user/update`, data);
+}
+
+const remove = (id) => {
+    return http.delete(`/user/${id}`);
+}
+
+
 const exportedObject = {
     getAll,
     get,
     authenticate,
-    save
+    save,
+    update,
+    remove,
+    existsEmail
 }
 export default exportedObject;
 

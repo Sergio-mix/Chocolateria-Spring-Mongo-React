@@ -9,12 +9,12 @@ const ModalForm = (props) => {
 
     return (
         <Fragment>
-            <div className="m-2">
-                <button className="btn btn-simple m-2" onClick={handleShow}>{props.title}</button>
-            </div>
+            <button className={"btn btn-simple m-2 " + props.color} onClick={handleShow}>{props.title}</button>
 
             <Modal show={show} title={props.title} container={[props.form,
-                <button className="close" onClick={handleClose}>&times;</button>]}/>
+                <div className="col-12">
+                    <button className="btn btn-outline-primary btn-sm " onClick={handleClose}>Close</button>
+                </div>]}/>
         </Fragment>
     )
 }
