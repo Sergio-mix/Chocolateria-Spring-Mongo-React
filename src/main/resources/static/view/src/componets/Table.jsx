@@ -26,6 +26,14 @@ const Table = (props) => {
     function onEvent(item) {
         let event = [];
 
+        if (props.event.indexOf('select') !== -1) {
+            event.push(props.select.event && (<select className="btn btn-simple m-2"
+                                                      id={"select" + item.reference}
+                                                      onChange={ev => props.select.event(item)}>
+                {props.select.options(item)}</select>)
+            )
+        }
+
         if (props.event.indexOf('aux') !== -1) {
             event.push(props.auxEvent && (
                 <button onClick={ev => props.auxEvent(item)}

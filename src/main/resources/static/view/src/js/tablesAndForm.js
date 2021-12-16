@@ -225,3 +225,5 @@ export let formCount = [
 ]
 
 
+export const columnsOrderCoord = columnsOrder;
+columnsOrderCoord.splice(columnsOrder.indexOf("status"));
