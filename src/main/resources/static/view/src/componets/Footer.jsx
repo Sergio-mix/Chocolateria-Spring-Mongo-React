@@ -6,7 +6,7 @@ const Footer = (props) => {
     const boxs = () => {
         let list = [];
         for (let box of props.info.boxs) {
-            list.push(<Box name={box.name} url={box.url} icon={box.icon} status={box.status}/>)
+            list.push(<Box name={box.name} url={box.url} target="_target" icon={box.icon} status={box.status}/>)
         }
         return list;
     }
