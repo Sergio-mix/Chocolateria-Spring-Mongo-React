@@ -6,3 +6,12 @@ export function doOpen(url) {
     document.location.target = "_blank";
     document.location.href = url;
 }
+
+export function date() {
+    let n = new Date();
+    let y = n.getFullYear();
+    let m = n.getMonth() + 1;
+    let d = n.getDate();
+
+    return y + "-" + m + "-" + d;
+}

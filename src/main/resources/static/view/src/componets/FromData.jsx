@@ -20,7 +20,7 @@ const FormData = (props) => {
                 <div className={"col-md-" + input.size}>
                     <label>{input.title} <strong>{"(" + input.status + ")"}</strong></label>
                     <input id={id} className="form-control" type={input.type}
-                           contentEditable="true" defaultValue={val}/>
+                            defaultValue={val}/>
                 </div>
             );
 
@@ -73,7 +73,7 @@ const FormData = (props) => {
     }
 
     list.push(<div className="col-12">
-        <button className="btn btn-primary" onClick={(data)}>{props.buttonName}</button>
+        <button className="btn btn-primary col-md-5" onClick={(data)}>{props.buttonName}</button>
     </div>)
 
     return (

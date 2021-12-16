@@ -1,6 +1,7 @@
 import React, {Fragment, useState, useEffect} from 'react';
 
 import {doOpen, USER} from '../js/manage';
+import {columnsUser, userListData, columnsProduct, productListData} from '../js/tablesAndForm';
 import Container from "../componets/Container";
 import Table from "../componets/Table";
 import UserService from "../services/UserService";
@@ -8,41 +9,18 @@ import ProductService from "../services/ProductService";
 import Load from "../componets/Load";
 
 const Admin = (props) => {
-    if (USER === null) {
-        doOpen('/');
-    }
-
     //Load -------------------------------------------------------
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    //User -------------------------------------------------------
-    const columnsUser = [
-        {
-            column: "Identification",
-            value: "identification"
-        }, {
-            column: "Name",
-            value: "name"
-        }, {
-            column: "Address",
-            value: "address"
-        }, {
-            column: "CellPhone",
-            value: "cellPhone"
-        }, {
-            column: "Email",
-            value: "email"
-        }, {
-            column: "Zone",
-            value: "zone"
-        }, {
-            column: "Type",
-            value: "type"
-        }];
+    if (USER === null) {
+        handleShow();
+        doOpen('/');
+    }
 
+    //User -------------------------------------------------------
     const [userList, setUserList] = useState([]);
 
     const tableDataUser = () => {
@@ -150,102 +128,21 @@ const Admin = (props) => {
         });
     }
 
-    let userListData = [
-        {
-            size: "6",
-            title: "Identification",
-            name: "identification",
-            status: "required",
-            type: "number"
-        },
-        {
-            size: "6",
-            title: "Name",
-            name: "name",
-            status: "required",
-            type: "text"
-        },
-        {
-            size: "6",
-            title: "Address",
-            name: "address",
-            status: "required",
-            type: "text"
-        },
-        {
-            size: "6",
-            title: "CellPhone",
-            name: "cellPhone",
-            status: "required",
-            type: "number"
-        },
-        {
-            size: "6",
-            title: "Email",
-            name: "email",
-            status: "required",
-            type: "email"
-        },
-        {
-            size: "6",
-            title: "Password",
-            name: "password",
-            status: "required",
-            type: "password"
-        },
-        {
-            size: "6",
-            title: "Zone",
-            name: "zone",
-            status: "required",
-            type: "text"
-        },
-        {
-            size: "6",
-            title: "Type",
-            name: "type",
-            type: "select",
-            option: [{
-                value: "COORD",
-                name: "Coordinadores de Zona"
-            }, {
-                value: "ASE",
-                name: "Asesores Comerciales"
-            }, {
-                value: "ADMIN",
-                name: "Administrador"
-            }]
-        },
-    ]
-
     //Product -------------------------------------------------------
-
-    const columnsProduct = [
-        {
-            column: "Reference",
-            value: "reference"
-        }, {
-            column: "Category",
-            value: "category"
-        },
-        {
-            column: "Description",
-            value: "description"
-        }, {
-            column: "Price",
-            value: "price"
-        },
-        {
-            column: "Quantity",
-            value: "quantity"
-        }
-    ];
-
     const [productList, setProductList] = useState([]);
 
     const tableDataProduct = () => {
         ProductService.getAll()
             .then((response) => {
+                for (let product of response.data) {
+                    if (product.availability) {
+                        product["availability_table"] = "Si";
+                    } else {
+                        product["availability_table"] = "No";
+                    }
+                    response.data[product] = product;
+                }
+
                 setProductList(response.data);
             }).catch(e => {
             alert("Process error");
@@ -324,57 +221,6 @@ const Admin = (props) => {
         });
     }
 
-    let productListData = [
-        {
-            size: "6",
-            title: "Category",
-            name: "category",
-            status: "required",
-            type: "text"
-        },
-        {
-            size: "6",
-            title: "Availability",
-            name: "availability",
-            type: "select",
-            option: [{
-                value: true,
-                name: "Si"
-            }, {
-                value: false,
-                name: "No"
-            }]
-        },
-        {
-            size: "6",
-            title: "Price",
-            name: "price",
-            status: "required",
-            type: "number"
-        },
-        {
-            size: "6",
-            title: "Quantity",
-            name: "quantity",
-            status: "required",
-            type: "number"
-        },
-        {
-            size: "6",
-            title: "Description",
-            name: "description",
-            status: "required",
-            type: "text"
-        },
-        {
-            size: "6",
-            title: "Photography",
-            name: "photography",
-            status: "required",
-            type: "text"
-        }
-    ]
-
     return (
         <Fragment>
             <Container title="System" profile_name={USER.name} footer={{
@@ -382,41 +228,47 @@ const Admin = (props) => {
                 boxs: [{name: "GitHub", url: "https://github.com/Sergio-mix", icon: "github", status: ""}]
             }}
                        nav={[{name: "table", url: "/admin", icon: "table", status: "shadow"}]}
-                       table={[<Table name="Users"
-                                      data={userList} columns={columnsUser}
-                                      event={["update", "remove"]}
+                       container={[<Table name={"Users: " + productList.length}
+                                          data={userList} columns={columnsUser}
+                                          event={["update", "remove"]}
 
-                                      add={{
-                                          name: "Register",
-                                          status: true,
-                                          form: {
-                                              buttonName: "Register",
-                                              event: onRegisterUser,
-                                              data: userListData,
-                                              clear: true
-                                          }
-                                      }}
+                                          add={{
+                                              name: "Register",
+                                              status: true,
+                                              form: {
+                                                  buttonName: "Register",
+                                                  width: "width-600",
+                                                  event: onRegisterUser,
+                                                  data: userListData,
+                                                  clear: true
+                                              }
+                                          }}
 
-                                      update={{
-                                          name: "Update",
-                                          color: "text-color-yellow",
-                                          form: {
-                                              buttonName: "Update",
-                                              event: onEditUser,
-                                              data: userListData,
-                                              clear: false,
-                                              typeId: "id"
-                                          }
-                                      }}
+                                          addTable={{
+                                              status: false,
+                                          }}
 
-                                      remove={{
-                                          name: "Remove",
-                                          color: "text-color-red",
-                                          event: onRemoveUser
-                                      }}
+                                          update={{
+                                              name: "Update",
+                                              color: "text-color-yellow",
+                                              form: {
+                                                  buttonName: "Update",
+                                                  width: "width-600",
+                                                  event: onEditUser,
+                                                  data: userListData,
+                                                  clear: false,
+                                                  typeId: "id"
+                                              }
+                                          }}
+
+                                          remove={{
+                                              name: "Remove",
+                                              color: "text-color-red",
+                                              event: onRemoveUser
+                                          }}
                        />,
 
-                           <Table name="Products"
+                           <Table name={"Products: " + productList.length}
                                   data={productList} columns={columnsProduct}
                                   event={["update", "remove"]}
 
@@ -425,10 +277,15 @@ const Admin = (props) => {
                                       status: true,
                                       form: {
                                           buttonName: "Register",
+                                          width: "width-600",
                                           event: onRegisterProduct,
                                           data: productListData,
                                           clear: true
                                       }
+                                  }}
+
+                                  addTable={{
+                                      status: false,
                                   }}
 
                                   update={{
@@ -436,6 +293,7 @@ const Admin = (props) => {
                                       color: "text-color-yellow",
                                       form: {
                                           buttonName: "Update",
+                                          width: "width-600",
                                           event: onEditProduct,
                                           data: productListData,
                                           clear: false,

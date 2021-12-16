@@ -3,14 +3,22 @@ import React, {Fragment, useState, useRef} from 'react';
 import {REGEX, doOpen} from '../js/manage';
 import Footer from "../componets/Footer";
 import UserService from '../services/UserService';
+import Load from "../componets/Load";
 
 const Login = (props) => {
     sessionStorage.clear();
+    //Load -------------------------------------------------------
+    const [show, setShow] = useState(false);
 
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    //Login ------------------------------------------------------
     const txtEmail = useRef();
     const txtPassword = useRef();
 
     const login = async () => {
+        handleShow();
         let email = txtEmail.current.value;
         let password = txtPassword.current.value;
 
@@ -23,14 +31,19 @@ const Login = (props) => {
                             doOpen("/profile")
                         } else {
                             alert('The email or password may be wrong')
+                            handleClose();
                         }
                     }).catch(e => {
+                    handleClose();
                     alert("Error in a connection");
+                    console.log(e);
                 });
             } else {
+                handleClose();
                 alert('Check the mail');
             }
         } else {
+            handleClose();
             alert('Verify information');
         }
     }
@@ -88,6 +101,7 @@ const Login = (props) => {
                 name: "Product store",
                 boxs: [{name: "GitHub", url: "https://github.com/Sergio-mix", icon: "github", status: ""}]
             }}/>
+            <Load show={show}/>
         </Fragment>
     );
 }

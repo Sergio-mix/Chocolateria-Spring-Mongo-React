@@ -24962,7 +24962,6 @@ pre[class*="language-"] {
 
 .modal-form {
     background-color: #FFFFFF;
-    width: 600px;
     max-width: 100%;
     padding: 30px 50px;
     border-radius: 15px;
@@ -25001,4 +25000,16 @@ body::-webkit-scrollbar-thumb {
     background-color: #cccccc; /* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
     border: 3px solid #ffffff; /* creates padding around scroll thumb */
+}
+
+.width-600{
+    width: 600px;
+}
+
+.width-1000{
+    width: 1000px;
+}
+
+.width-1200{
+    width: 1200px;
 }

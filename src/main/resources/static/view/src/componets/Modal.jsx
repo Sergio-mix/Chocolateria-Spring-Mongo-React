@@ -10,7 +10,7 @@ const Modal = (props) => {
 
     return (
         <div className={"modal modalcontainer " + show}>
-            <div className="modal-form">
+            <div className={"modal-form "+props.width}>
                 <div className="g-12">
                     <div>
                         <h3>{props.title}</h3>

@@ -11,9 +11,9 @@ const ModalForm = (props) => {
         <Fragment>
             <button className={"btn btn-simple m-2 " + props.color} onClick={handleShow}>{props.title}</button>
 
-            <Modal show={show} title={props.title} container={[props.form,
+            <Modal show={show} title={props.title} width={props.width} container={[props.container,
                 <div className="col-12">
-                    <button className="btn btn-outline-primary btn-sm " onClick={handleClose}>Close</button>
+                    <button className="btn btn-outline-primary col-md-4 " onClick={handleClose}>Close</button>
                 </div>]}/>
         </Fragment>
     )

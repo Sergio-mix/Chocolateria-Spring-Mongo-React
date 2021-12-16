@@ -4,25 +4,35 @@ import FromData from "./FromData";
 
 const Table = (props) => {
     let add = [];
+
     if (props.add.status) {
         add.push(<ModalForm title={props.add.name}
-                            form={<FromData buttonName={props.add.form.buttonName} event={props.add.form.event}
-                                            items={props.add.form.data}
-                                            data={null}
-                                            clear={props.add.form.clear}/>}
-                            event={props.add.event}/>)
+                            width={props.add.form.width}
+                            container={<FromData buttonName={props.add.form.buttonName} event={props.add.form.event}
+                                                 items={props.add.form.data}
+                                                 data={null}
+                                                 clear={props.add.form.clear}/>}
+        />)
+    }
+
+    if (props.addTable.status) {
+        add.push(<ModalForm title={props.addTable.name}
+                            width={props.addTable.table.width}
+                            container={props.addTable.table.table}
+        />)
     }
 
     function onEvent(item) {
         let event = [];
         if (props.event.indexOf('update') !== -1) {
             event.push(<ModalForm title={props.update.name}
-                                  form={<FromData buttonName={props.update.form.buttonName}
-                                                  event={props.update.form.event}
-                                                  items={props.update.form.data}
-                                                  data={item}
-                                                  typeId={props.update.form.typeId}
-                                                  clear={props.update.form.clear}/>}
+                                  width={props.update.form.width}
+                                  container={<FromData buttonName={props.update.form.buttonName}
+                                                       event={props.update.form.event}
+                                                       items={props.update.form.data}
+                                                       data={item}
+                                                       typeId={props.update.form.typeId}
+                                                       clear={props.update.form.clear}/>}
                                   event={props.update.event}
                                   color={props.update.color}/>)
         }
@@ -31,13 +41,21 @@ const Table = (props) => {
             event.push(props.remove.event && (
                 <button onClick={ev => props.remove.event(item)}
                         className="btn btn-simple m-2 text-color-red">Eliminar</button>
-            ));
+            ))
         }
 
         if (props.event.indexOf('detail') !== -1) {
-            event.push(props.onDelete && (
-                <button onClick={ev => props.onDelete(item)}
-                        className="btn btn-simple m-2 text-color-blue">Detalle</button>));
+            event.push(<ModalForm title={props.detail.name}
+                                  with={props.detail.width}
+                                  color={props.detail.color}
+                                  container={[props.detail.event(item)]}/>)
+        }
+
+        if (props.event.indexOf('aux') !== -1) {
+            event.push(props.aux.event && (
+                <button onClick={ev => props.aux.event(item)}
+                        className={"btn btn-simple m-2 " + props.aux.color}>{props.aux.name}</button>
+            ))
         }
 
         return event

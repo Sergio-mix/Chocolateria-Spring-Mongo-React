@@ -11,7 +11,7 @@ const Container = (props) => {
                 <Nav title={props.title} profile_name={props.profile_name}
                      boxs={props.nav}/>
                 <div className="container-fluid py-4">
-                    {props.table}
+                    {props.container}
                     <Footer info={props.footer}/>
                 </div>
             </main>

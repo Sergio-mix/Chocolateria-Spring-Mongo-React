@@ -13,7 +13,7 @@ const Nav = (props) => {
         <Fragment>
             <nav className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow border-radius-xl"
                  navbar-scroll="true">
-                <div className="container-fluid py-1 px-3">
+                <div className="container-fluid py-2 px-3">
                     <nav aria-label="breadcrumb">
                         <h4 className="font-weight-bolder mb-0">{props.title}</h4>
                     </nav>

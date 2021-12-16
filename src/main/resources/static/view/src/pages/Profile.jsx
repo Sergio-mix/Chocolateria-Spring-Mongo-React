@@ -1,14 +1,24 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import ProfileFormData from "../componets/ProfileFormData";
 import {doOpen, USER} from '../js/manage';
+import Load from "../componets/Load";
 
 const Profile = (props) => {
+    if (USER === null) {
+        doOpen('/');
+    }
+    //Load -------------------------------------------------------
+    const [show, setShow] = useState(false);
+
+    const handleShow = () => setShow(true);
 
     const login = () => {
+        handleShow();
         doOpen('/');
     }
 
     const sessionUser = () => {
+        handleShow();
         switch (USER.type) {
             case 'ADMIN':
                 doOpen('/admin');
@@ -45,6 +55,7 @@ const Profile = (props) => {
                     </div>
                 </div>
             </main>
+            <Load show={show}/>
         </Fragment>
     );
 }
