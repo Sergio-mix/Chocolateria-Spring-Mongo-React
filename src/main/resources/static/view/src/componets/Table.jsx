@@ -8,7 +8,8 @@ const Table = (props) => {
     if (props.add.status) {
         add.push(<ModalForm title={props.add.name}
                             width={props.add.form.width}
-                            container={<FromData buttonName={props.add.form.buttonName} event={props.add.form.event}
+                            container={<FromData buttonName={props.add.form.buttonName}
+                                                 event={props.add.form.event}
                                                  items={props.add.form.data}
                                                  data={null}
                                                  clear={props.add.form.clear}/>}
@@ -24,6 +25,14 @@ const Table = (props) => {
 
     function onEvent(item) {
         let event = [];
+
+        if (props.event.indexOf('aux') !== -1) {
+            event.push(props.auxEvent && (
+                <button onClick={ev => props.auxEvent(item)}
+                        className={"btn btn-simple m-2 " + props.aux.color}>{props.aux.name}</button>
+            ))
+        }
+
         if (props.event.indexOf('update') !== -1) {
             event.push(<ModalForm title={props.update.name}
                                   width={props.update.form.width}
@@ -49,13 +58,6 @@ const Table = (props) => {
                                   with={props.detail.width}
                                   color={props.detail.color}
                                   container={[props.detail.event(item)]}/>)
-        }
-
-        if (props.event.indexOf('aux') !== -1) {
-            event.push(props.aux.event && (
-                <button onClick={ev => props.aux.event(item)}
-                        className={"btn btn-simple m-2 " + props.aux.color}>{props.aux.name}</button>
-            ))
         }
 
         return event

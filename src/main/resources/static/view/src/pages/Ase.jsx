@@ -1,7 +1,14 @@
 import React, {Fragment, useState, useEffect} from 'react';
 
 import {doOpen, USER, date} from '../js/manage';
-import {columnsOrder, columnsOrderProduct, columnsProduct, columnsProductOrder} from '../js/tablesAndForm';
+import {
+    columnsOrder,
+    columnsOrderProduct,
+    columnsProduct,
+    columnsProductOrder,
+    productListData,
+    formCount
+} from '../js/tablesAndForm';
 import Container from "../componets/Container";
 import Table from "../componets/Table";
 import OrderService from "../services/OrderService";
@@ -51,31 +58,6 @@ const Ase = (props) => {
         tableDataOreder();
     }, [])
 
-    const onRegisterProduct = (product) => {
-        handleShow();
-        let json = {};
-        for (let val of product) {
-            json[val.name] = val.value;
-
-            if (val.value === '') {
-                handleClose();
-                alert('Invalid input values');
-                return;
-            }
-        }
-
-        ProductService.save(json)
-            .then((response) => {
-                tableDataOreder();
-                handleClose();
-                alert('Save Product');
-            }).catch(e => {
-            handleClose();
-            alert("Process error");
-            console.log(e);
-        });
-    }
-
     const getOrderAllProducts = (order) => {
         handleShow();
         let list = [];
@@ -101,8 +83,7 @@ const Ase = (props) => {
                 description: order.products[product].description,
                 availability: dis,
                 price: order.products[product].price,
-                quantity: order.products[product].quantity,
-                quantity_order: countI
+                quantity: countI
             });
         }
 
@@ -122,12 +103,15 @@ const Ase = (props) => {
                       }}/>;
     }
 
-    const [productOrdelList, setOrderproductOrdelList] = useState([]);
+    const [productOrdelList, setOrderproductList] = useState([]);
+    const [orderListProduct, setOrderListProduct] = useState([]);
+
 
     const tableDataProduct = () => {
         ProductService.getAll()
             .then((response) => {
                 for (let product of response.data) {
+                    product["count_order"] = 1;
                     if (product.availability) {
                         product["availability_table"] = "Si";
                     } else {
@@ -135,7 +119,8 @@ const Ase = (props) => {
                     }
                     response.data[product] = product;
                 }
-                setOrderproductOrdelList(response.data);
+
+                setOrderproductList(response.data);
             }).catch(e => {
             alert("Process error");
             console.log(e);
@@ -146,6 +131,100 @@ const Ase = (props) => {
         tableDataProduct();
     }, [])
 
+
+    const removeListAndAdd = (object) => {
+        let list = orderListProduct;
+        let subList = productOrdelList;
+        list.push(object);
+        subList.splice(object, 1);
+        allProduct(subList);
+        allProductOrder(list);
+    }
+
+    const addListAndRemove = (object) => {
+        let list = orderListProduct;
+        let subList = productOrdelList;
+        subList.push(object);
+        list.splice(object, 1);
+        allProduct(subList);
+        allProductOrder(list);
+    }
+
+    function allProduct(list) {
+        let subList = [];
+        for (let product of list) {
+            subList.push(product);
+        }
+        setOrderproductList(subList);
+    }
+
+    function allProductOrder(list) {
+        let subList = [];
+        for (let product of list) {
+            subList.push(product);
+        }
+        setOrderListProduct(subList);
+    }
+
+    const countProduct = (input, data) => {
+        let list = orderListProduct;
+        data["count_order"] = 1;
+        list[list.indexOf(data)].count_order = input[0].value;
+        allProductOrder(list);
+        alert('Updated quantity');
+    }
+
+    const onRegisterOrder = () => {
+        try {
+            if (orderListProduct.length === 0) {
+                alert("First you have to enter the products");
+                return;
+            }
+
+            let json = {};
+
+            json["registerDay"] = date();
+            json["status"] = "pendiente";
+            json["salesMan"] = USER;
+
+            let products = {};
+            let quantities = {};
+
+            for (let val of orderListProduct) {
+                products[val.reference] = {
+                    reference: val.reference,
+                    category: val.category,
+                    description: val.description,
+                    availability: val.availability,
+                    price: val.price,
+                    quantity: val.quantity,
+                    photography: val.photography
+                }
+
+                quantities[val.reference] = val.count_order;
+            }
+
+            json["products"] = products;
+            json["quantities"] = quantities;
+
+            OrderService.save(json)
+                .then((response) => {
+                    setOrderListProduct([]);
+                    tableDataProduct();
+                    tableDataOreder();
+                    handleClose();
+                    alert('Save Order');
+                }).catch(e => {
+                handleClose();
+                alert("Process error");
+                console.log(e);
+            });
+        } catch (e) {
+            handleClose();
+            console.log(e);
+            alert("Process error");
+        }
+    }
 
     return (
         <Fragment>
@@ -178,7 +257,7 @@ const Ase = (props) => {
                                                        <button type="button"
                                                                className="btn bg-gradient-primary col-md-12"
                                                                data-bs-toggle="modal"
-                                                               onClick="registerOrder()">
+                                                               onClick={onRegisterOrder}>
                                                            Register Order
                                                        </button>
                                                    </div>
@@ -188,22 +267,41 @@ const Ase = (props) => {
                                    </div>
                                </div>
                                <div className="col-lg-8 mt-lg-0 mt-2">
-                                   <Table name={<h4>Product order</h4>}
-                                          data={[]} columns={columnsProductOrder}
-                                          event={["remove"]}
+                                   <Table name={<h5>Product order: {orderListProduct.length}</h5>}
+                                          data={orderListProduct} columns={columnsProductOrder}
+                                          event={["update", "remove"]}
 
                                           add={{
                                               status: false,
+                                          }}
+
+                                          auxEvent={removeListAndAdd}
+
+                                          update={{
+                                              name: "Count",
+                                              color: "text-color-yellow",
+                                              form: {
+                                                  buttonName: "Ok",
+                                                  width: "width-600",
+                                                  event: countProduct,
+                                                  data: formCount,
+                                                  clear: false,
+                                                  typeId: "reference"
+                                              }
+                                          }}
+
+                                          remove={{
+                                              name: "Remove",
+                                              color: "text-color-red",
+                                              event: addListAndRemove
                                           }}
 
                                           addTable={{
                                               name: "Add product",
                                               status: true,
                                               table: {
-                                                  buttonName: "Ok",
                                                   width: "width-1200",
-                                                  event: '',
-                                                  table: <Table name={"Products: "}
+                                                  table: <Table name={"Products: " + productOrdelList.length}
                                                                 data={productOrdelList}
                                                                 columns={columnsProduct}
                                                                 event={["aux"]}
@@ -216,19 +314,14 @@ const Ase = (props) => {
                                                                     status: false,
                                                                 }}
 
+                                                                auxEvent={removeListAndAdd}
+
                                                                 aux={{
                                                                     name: "Add",
-                                                                    event: {tableDataProduct},
                                                                     color: "text-color-yellow"
                                                                 }}
                                                   />
                                               }
-                                          }}
-
-                                          remove={{
-                                              name: "Remove",
-                                              color: "text-color-red",
-                                              event: ''
                                           }}
                                    />
                                </div>

@@ -213,7 +213,15 @@ export const columnsProductOrder = [
 ];
 
 export const columnsOrderProduct = columnsProductOrder;
-columnsOrderProduct.push({
-    column: "Quantity order",
-    value: "quantity_order"
-});
+
+export let formCount = [
+    {
+        size: "12",
+        title: "Count",
+        name: "count_order",
+        status: "required",
+        type: "number"
+    }
+]
+
+
