@@ -132,7 +132,7 @@ const Coord = (props) => {
             }}
                        nav={[{name: "table", url: "/coord", icon: "table", status: "shadow"}]}
                        container={[
-                           <Table name="Order"
+                           <Table name={<h5 className={"m-2"}>Order: {orderList.length}</h5>}
                                   data={orderList} columns={columnsOrderCoord}
                                   event={["detail", "select"]}
 

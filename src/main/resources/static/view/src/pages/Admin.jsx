@@ -228,7 +228,7 @@ const Admin = (props) => {
                 boxs: [{name: "GitHub", url: "https://github.com/Sergio-mix", icon: "github", status: ""}]
             }}
                        nav={[{name: "table", url: "/admin", icon: "table", status: "shadow"}]}
-                       container={[<Table name={"Users: " + productList.length}
+                       container={[<Table name={<h5 className={"m-2"}>User: {productList.length}</h5>}
                                           data={userList} columns={columnsUser}
                                           event={["update", "remove"]}
 
@@ -268,7 +268,7 @@ const Admin = (props) => {
                                           }}
                        />,
 
-                           <Table name={"Products: " + productList.length}
+                           <Table name={<h5 className={"m-2"}>Products: {productList.length}</h5>}
                                   data={productList} columns={columnsProduct}
                                   event={["update", "remove"]}
 

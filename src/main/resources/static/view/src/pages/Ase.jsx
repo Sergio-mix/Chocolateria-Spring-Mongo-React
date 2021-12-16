@@ -267,7 +267,7 @@ const Ase = (props) => {
                                    </div>
                                </div>
                                <div className="col-lg-8 mt-lg-0 mt-2">
-                                   <Table name={<h5>Product order: {orderListProduct.length}</h5>}
+                                   <Table name={<h5 className={"m-2"}>Product order: {orderListProduct.length}</h5>}
                                           data={orderListProduct} columns={columnsProductOrder}
                                           event={["update", "remove"]}
 
@@ -327,7 +327,7 @@ const Ase = (props) => {
                                </div>
                            </div>
                        </div>,
-                           <Table name="Order"
+                           <Table name={<h5 className={"m-2"}>Order: {orderList.length}</h5>}
                                   data={orderList} columns={columnsOrder}
                                   event={["detail"]}
 

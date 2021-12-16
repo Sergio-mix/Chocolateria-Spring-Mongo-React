@@ -225,5 +225,23 @@ export let formCount = [
 ]
 
 
-export const columnsOrderCoord = columnsOrder;
-columnsOrderCoord.splice(columnsOrder.indexOf("status"));
+export const columnsOrderCoord = [
+    {
+        column: "Id user",
+        value: "salesMan_identification"
+    }, {
+        column: "Names",
+        value: "salesMan_name"
+    },
+    {
+        column: "Email",
+        value: "salesMan_email"
+    }, {
+        column: "Date",
+        value: "registerDay"
+    },
+    {
+        column: "Id Order",
+        value: "id"
+    }
+];
