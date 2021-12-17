@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import ModalForm from "./ModalForm";
-import FromData from "./FromData";
+import FromData from "./FormData";
 
 const Table = (props) => {
     let add = [];

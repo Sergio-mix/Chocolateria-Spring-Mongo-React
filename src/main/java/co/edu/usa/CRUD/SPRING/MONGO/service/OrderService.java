@@ -6,14 +6,22 @@ import co.edu.usa.CRUD.SPRING.MONGO.model.Order;
 import co.edu.usa.CRUD.SPRING.MONGO.model.Product;
 import co.edu.usa.CRUD.SPRING.MONGO.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
 public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     public Order createOrder(Order order) {
         if (order.getId() == null)
@@ -62,5 +70,43 @@ public class OrderService {
         } else {
             return 1L;
         }
+    }
+
+    public List<Order> ordersSalesManByID(Long id) {
+
+        Query query = new Query();
+        Criteria dateCriteria = Criteria.where("salesMan.id").is(id);
+
+        query.addCriteria(dateCriteria);
+        List<Order> orders = mongoTemplate.find(query, Order.class);
+
+        return orders;
+    }
+
+    public List<Order> ordersSalesManByDate(String dateStr, Long id) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        Query query = new Query();
+        Criteria dateCriteria = Criteria.where("registerDay")
+                .gte(LocalDate.parse(dateStr, dtf).minusDays(1).atStartOfDay())
+                .lt(LocalDate.parse(dateStr, dtf).plusDays(2).atStartOfDay())
+                .and("salesMan.id").is(id);
+
+        query.addCriteria(dateCriteria);
+        List<Order> orders = mongoTemplate.find(query, Order.class);
+
+        return orders;
+    }
+
+    public List<Order> ordersSalesManByState(String state, Long id) {
+
+        Query query = new Query();
+        Criteria dateCriteria = Criteria.where("salesMan.id").is(id)
+                .and("status").is(state);
+
+        query.addCriteria(dateCriteria);
+        List<Order> orders = mongoTemplate.find(query, Order.class);
+
+        return orders;
     }
 }

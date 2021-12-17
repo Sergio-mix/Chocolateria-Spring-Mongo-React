@@ -224,6 +224,21 @@ export let formCount = [
     }
 ]
 
+export const columnsOrderAse= [
+    {
+        column: "Date",
+        value: "registerDay"
+    },
+    {
+        column: "No. Order",
+        value: "id"
+    },
+    {
+        column: "Status",
+        value: "status"
+    }
+];
+
 
 export const columnsOrderCoord = [
     {
@@ -243,5 +258,32 @@ export const columnsOrderCoord = [
     {
         column: "Id Order",
         value: "id"
+    }
+];
+
+export let infoOrderAse = [
+    {
+        size: "6",
+        title: "Identification User",
+        name: "salesMan_identification"
+    }, {
+        size: "6",
+        title: "Name User",
+        name: "salesMan_name"
+    },
+    {
+        size: "6",
+        title: "Email User",
+        name: "salesMan_email"
+    },
+    {
+        size: "6",
+        title: "Date",
+        name: "registerDay"
+    },
+    {
+        size: "6",
+        title: "No. Order",
+        name: "id"
     }
 ];

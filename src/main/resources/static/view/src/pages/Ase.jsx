@@ -6,8 +6,7 @@ import {
     columnsOrderProduct,
     columnsProduct,
     columnsProductOrder,
-    productListData,
-    formCount
+    formCount, columnsOrderAse
 } from '../js/tablesAndForm';
 import Container from "../componets/Container";
 import Table from "../componets/Table";
@@ -28,7 +27,77 @@ const Ase = (props) => {
     const handleShow = () => setShow(true);
 
     //Order -------------------------------------------------------
+    const [orderListUser, setOrderListUser] = useState([]);
+    const [inputFilter, setInputFilter] = useState([]);
     const [orderList, setOrderList] = useState([]);
+
+    const tableDataOrederUser = (event) => {
+        event.then((response) => {
+            let orders = [];
+            for (let order of response.data) {
+                orders.push(
+                    {
+                        salesMan_identification: order.salesMan.identification,
+                        salesMan_name: order.salesMan.name,
+                        salesMan_email: order.salesMan.email,
+                        registerDay: order.registerDay,
+                        id: order.id,
+                        products: order.products,
+                        status: order.status,
+                        quantities: order.quantities
+                    })
+            }
+            setOrderListUser(orders);
+        }).catch(e => {
+            alert("Process error");
+            console.log(e);
+        });
+    }
+
+    useEffect(() => {
+        tableDataOrederUser(OrderService.getAllUser(USER.id));
+    }, []);
+
+    function methodFilter(type) {
+        let value = document.getElementById("txtFilter").value;
+        switch (type) {
+            case 'fecha':
+                tableDataOrederUser(OrderService.allFilterDate(value, USER.id));
+                break;
+            case 'estado':
+                tableDataOrederUser(OrderService.allFilterStatus(value, USER.id));
+                break;
+        }
+    }
+
+    function inputDate() {
+        return [<input id="txtFilter" type="date"/>,
+            <button onClick={e => methodFilter("fecha")}>Ok</button>];
+    }
+
+    function inputSetct() {
+        return <select id="txtFilter"
+                       onClick={e => methodFilter("estado")}>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Aprobada">Aprobada</option>
+        </select>;
+    }
+
+    const inputTypeValue = () => {
+        let value = document.getElementById('selectFilterData').value;
+        switch (value) {
+            case 'fecha':
+                setInputFilter(inputDate);
+                break;
+            case 'estado':
+                setInputFilter(inputSetct);
+                break;
+            case 'todo':
+                tableDataOrederUser(OrderService.getAllUser(USER.id));
+                setInputFilter([]);
+                break;
+        }
+    }
 
     const tableDataOreder = () => {
         OrderService.getAll()
@@ -327,26 +396,55 @@ const Ase = (props) => {
                                </div>
                            </div>
                        </div>,
-                           <Table name={<h5 className={"m-2"}>Order: {orderList.length}</h5>}
-                                  data={orderList} columns={columnsOrder}
-                                  event={["detail"]}
+                           <div className="row">
+                               <div className="col-8">
+                                   <select id={"selectFilterData"} onClick={inputTypeValue}>
+                                       <option value="todo">all</option>
+                                       <option value="fecha">date</option>
+                                       <option value="estado">status</option>
+                                   </select>
+                                   {inputFilter}
+                               </div>
+                               <Table name={<h5 className={"m-2"}>Order: {orderList.length}</h5>}
+                                      data={orderListUser} columns={columnsOrder}
+                                      event={["detail"]}
 
-                                  add={{
-                                      status: false,
-                                  }}
+                                      add={{
+                                          status: false,
+                                      }}
 
 
-                                  addTable={{
-                                      status: false,
-                                  }}
+                                      addTable={{
+                                          status: false,
+                                      }}
 
-                                  detail={{
-                                      name: "Order",
-                                      width: "width-1000",
-                                      event: getOrderAllProducts,
-                                      color: "text-color-blue",
-                                      columns: {columnsOrderProduct}
-                                  }}
+                                      detail={{
+                                          name: "Order",
+                                          width: "width-1000",
+                                          event: getOrderAllProducts,
+                                          color: "text-color-blue",
+                                          columns: {columnsOrderProduct}
+                                      }}
+                               /></div>, <Table name={<h5 className={"m-2"}>Order: {orderList.length}</h5>}
+                                                data={orderList} columns={columnsOrderAse}
+                                                event={["detail"]}
+
+                                                add={{
+                                                    status: false,
+                                                }}
+
+
+                                                addTable={{
+                                                    status: false,
+                                                }}
+
+                                                detail={{
+                                                    name: "Order",
+                                                    width: "width-1000",
+                                                    event: getOrderAllProducts,
+                                                    color: "text-color-blue",
+                                                    columns: {columnsOrderProduct}
+                                                }}
                            />]}/>
             <Load show={show}/>
         </Fragment>

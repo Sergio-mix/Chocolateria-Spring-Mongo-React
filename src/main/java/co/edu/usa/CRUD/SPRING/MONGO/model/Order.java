@@ -5,8 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Id;
+
 import java.util.Date;
 import java.util.Map;
 
@@ -14,12 +16,13 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Document(collection = "order")
+@Document(collection = "orderS")
 public class Order {
 
     @Id
     private Long id;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date registerDay;
 
     private String status;

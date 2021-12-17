@@ -36,7 +36,6 @@ public class OrderRest {
         orderService.updateOrder(order);
     }
 
-
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     private void removeOrder(@PathVariable("id") Long id) {
@@ -55,4 +54,18 @@ public class OrderRest {
         return orderService.allOrder_zone(zone);
     }
 
+    @GetMapping("/salesman/{id}")
+    public List<Order> ordersSalesManByID(@PathVariable("id") Long id) {
+        return orderService.ordersSalesManByID(id);
+    }
+
+    @GetMapping("/date/{date}/{id}")
+    public List<Order> ordersSalesManByDate(@PathVariable("date") String date, @PathVariable("id") Long id) {
+        return orderService.ordersSalesManByDate(date, id);
+    }
+
+    @GetMapping("/state/{status}/{id}")
+    public List<Order> ordersSalesManByState(@PathVariable("status") String status, @PathVariable("id") Long id) {
+        return orderService.ordersSalesManByState(status, id);
+    }
 }
