@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>co.edu.usa</groupId>
-	<artifactId>CRUD-SPRING-MONGO</artifactId>
+	<artifactId>CRUD-SPRING-AND-MONGO-3.0</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CRUD-SPRING-MONGO</name>
+	<name>CRUD-SPRING-AND-MONGO-3.0</name>
 	<description> Autenticación - BD Usuarios (CRUD) - Inventario de Productos (CRUD)</description>
 	<properties>
 		<java.version>11</java.version>
