@@ -73,7 +73,7 @@ const Table = (props) => {
 
     return (
         <Fragment>
-            <div className="row">
+            <div className="container">
                 <div className="col-12">
                     <div className="content mb-4">
                         <div className="card-header pb-0">

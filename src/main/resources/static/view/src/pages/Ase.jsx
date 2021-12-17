@@ -71,12 +71,12 @@ const Ase = (props) => {
     }
 
     function inputDate() {
-        return [<input id="txtFilter" type="date"/>,
-            <button onClick={e => methodFilter("fecha")}>Ok</button>];
+        return [<input id="txtFilter" type="date" className="form-control mt-4 col-md-8"/>,
+            <button className="btn bg-gradient-primary col-md-6 mt-4" onClick={e => methodFilter("fecha")}>Ok</button>];
     }
 
     function inputSetct() {
-        return <select id="txtFilter"
+        return <select id="txtFilter" className="form-control mt-4 col-md-8"
                        onClick={e => methodFilter("estado")}>
             <option value="Pendiente">Pendiente</option>
             <option value="Aprobada">Aprobada</option>
@@ -253,7 +253,7 @@ const Ase = (props) => {
             let json = {};
 
             json["registerDay"] = date();
-            json["status"] = "pendiente";
+            json["status"] = "Pendiente";
             json["salesMan"] = USER;
 
             let products = {};
@@ -280,6 +280,7 @@ const Ase = (props) => {
                 .then((response) => {
                     setOrderListProduct([]);
                     tableDataProduct();
+                    tableDataOrederUser(OrderService.getAllUser(USER.id));
                     tableDataOreder();
                     handleClose();
                     alert('Save Order');
@@ -307,22 +308,22 @@ const Ase = (props) => {
                                <div className="col-lg-4">
                                    <div className="card h-100">
                                        <div className="card-body">
-                                           <h5 className="font-weight-bolder">Invoice information</h5>
+                                           <h3 className="font-weight-bolder">Invoice information</h3>
                                            <div className="row">
                                                <div className="col-12 mt-4">
                                                    <div className="col-6 col-sm-12">
                                                        <label>Date</label>
-                                                       <h3>{date()}</h3>
+                                                       <h4>{date()}</h4>
                                                    </div>
                                                    <div className="col-6 col-sm-12">
                                                        <label>Status</label>
-                                                       <h3>Pendiente</h3>
+                                                       <h4>Pendiente</h4>
                                                    </div>
                                                    <div className="col-6 col-sm-12">
                                                        <label>SalesMan</label>
-                                                       <h3>{USER.name}</h3>
+                                                       <h4>{USER.name}</h4>
                                                    </div>
-                                                   <div className="card-body ">
+                                                   <div className="card-body">
                                                        <button type="button"
                                                                className="btn bg-gradient-primary col-md-12"
                                                                data-bs-toggle="modal"
@@ -396,16 +397,18 @@ const Ase = (props) => {
                                </div>
                            </div>
                        </div>,
-                           <div className="row">
-                               <div className="col-8">
-                                   <select id={"selectFilterData"} onClick={inputTypeValue}>
+                           <div>
+                               <h3 className="">Filter</h3>
+                               <div className="container content  mb-4">
+                                   <select className="form-select" id={"selectFilterData"}
+                                           onClick={inputTypeValue}>
                                        <option value="todo">all</option>
                                        <option value="fecha">date</option>
                                        <option value="estado">status</option>
                                    </select>
                                    {inputFilter}
                                </div>
-                               <Table name={<h5 className={"m-2"}>Order: {orderList.length}</h5>}
+                               <Table name={<h5 className={"m-2"}>Order: {orderListUser.length}</h5>}
                                       data={orderListUser} columns={columnsOrder}
                                       event={["detail"]}
 
