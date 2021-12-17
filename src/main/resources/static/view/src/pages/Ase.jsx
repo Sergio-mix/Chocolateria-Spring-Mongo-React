@@ -71,8 +71,12 @@ const Ase = (props) => {
     }
 
     function inputDate() {
-        return [<input id="txtFilter" type="date" className="form-control mt-4 col-md-8"/>,
-            <button className="btn bg-gradient-primary col-md-6 mt-4" onClick={e => methodFilter("fecha")}>Ok</button>];
+        return [<input id="txtFilter" type="date" className="form-control mt-4 col-md-8 mb-2"/>,
+            <div className="card-body mx-auto col-md-6">
+                <button className="btn bg-gradient-primary col-md-12"
+                        onClick={e => methodFilter("fecha")}>Ok
+                </button>
+            </div>];
     }
 
     function inputSetct() {
@@ -397,9 +401,9 @@ const Ase = (props) => {
                                </div>
                            </div>
                        </div>,
-                           <div>
-                               <h3 className="">Filter</h3>
-                               <div className="container content  mb-4">
+                           <div className="mx-auto">
+                               <h2 className="mb-3 text-center">Filter</h2>
+                               <div className="container content mb-4 col-lg-8 p-3">
                                    <select className="form-select" id={"selectFilterData"}
                                            onClick={inputTypeValue}>
                                        <option value="todo">all</option>
@@ -408,7 +412,7 @@ const Ase = (props) => {
                                    </select>
                                    {inputFilter}
                                </div>
-                               <Table name={<h5 className={"m-2"}>Order: {orderListUser.length}</h5>}
+                               <Table name={<h5 className="m-2">Order: {orderListUser.length}</h5>}
                                       data={orderListUser} columns={columnsOrder}
                                       event={["detail"]}
 
