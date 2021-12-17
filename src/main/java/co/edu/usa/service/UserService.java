@@ -97,5 +97,9 @@ public class UserService {
             return 1L;
         }
     }
+
+    public List<User> monthBirthtDayList(String monthBirthtDay) {
+        return userRepository.monthBirthtDayList(monthBirthtDay);
+    }
 }
 

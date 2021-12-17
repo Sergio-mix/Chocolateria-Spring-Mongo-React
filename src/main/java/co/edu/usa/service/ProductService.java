@@ -1,9 +1,13 @@
 package co.edu.usa.service;
 
 import co.edu.usa.exception.ResourceNotFoundException;
+import co.edu.usa.model.Order;
 import co.edu.usa.model.Product;
 import co.edu.usa.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,5 +56,13 @@ public class ProductService {
     public Product getProductById(String id) {
         Optional<Product> product = productRepository.findById(id);
         return product.orElse(null);
+    }
+
+    public List<Order> ordersDescription(String description) {
+        return productRepository.descriptionList(description);
+    }
+
+    public List<Order> ordersPrice(Double price) {
+        return productRepository.priceList(price);
     }
 }

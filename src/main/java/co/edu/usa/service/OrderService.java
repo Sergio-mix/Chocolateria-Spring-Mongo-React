@@ -98,7 +98,6 @@ public class OrderService {
     }
 
     public List<Order> ordersSalesManByState(String state, Long id) {
-
         Query query = new Query();
         Criteria dateCriteria = Criteria.where("salesMan.id").is(id)
                 .and("status").is(state);
@@ -108,4 +107,6 @@ public class OrderService {
 
         return orders;
     }
+
+
 }

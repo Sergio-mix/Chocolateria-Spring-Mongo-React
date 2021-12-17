@@ -57,4 +57,10 @@ public class UserRest {
     private User getUser(@PathVariable("id") Long id) {
         return userService.getUserById(id);
     }
+
+    @GetMapping("birthday/{monthBirthtDay}")
+    @ResponseStatus(HttpStatus.OK)
+    private List<User> monthBirthtDayList(@PathVariable("monthBirthtDay") String monthBirthtDay) {
+        return userService.monthBirthtDayList(monthBirthtDay);
+    }
 }
