@@ -7,6 +7,7 @@ import Ase from "./pages/Ase";
 import Coord from "./pages/Coord";
 import Products from "./pages/Products";
 import Birthday from "./pages/Birthday";
+import SignUp from "./pages/SignUp";
 
 function App() {
     return (
@@ -17,8 +18,9 @@ function App() {
                 <Route  path="/admin" element={<Admin/>}/>
                 <Route  path="/ase" element={<Ase/>}/>
                 <Route  path="/products" element={<Products/>}/>
-                <Route  path="/Coord" element={<Coord/>}/>
+                <Route  path="/coord" element={<Coord/>}/>
                 <Route  path="/birthday" element={<Birthday/>}/>
+                <Route  path="/sign-up" element={<SignUp/>}/>
             </Routes>
         </Router>
     );

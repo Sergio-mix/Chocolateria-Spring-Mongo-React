@@ -328,7 +328,7 @@ export const columnsOrderCoord = [
     }
 ];
 
-export let infoOrderAse = [
+export const infoOrderAse = [
     {
         size: "6",
         title: "Identification User",
@@ -354,3 +354,19 @@ export let infoOrderAse = [
         name: "id"
     }
 ];
+
+export const birthday = [
+    {
+        column: "Name",
+        value: "name"
+    },
+    {
+        column: "Email",
+        value: "email"
+    }, {
+        column: "BirthtDay",
+        value: "birthtDay"
+    }, {
+        column: "Zone",
+        value: "zone"
+    }]

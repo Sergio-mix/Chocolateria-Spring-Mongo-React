@@ -13,7 +13,6 @@ const ProfileFormData = (props) => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="row">
                         <div className="card-body p-3">
                             <ul className="list-group">
                                 <li className="list-group-item border-0 ps-0 text-sm">
@@ -27,7 +26,6 @@ const ProfileFormData = (props) => {
                                 </li>
                             </ul>
                         </div>
-                    </div>
                 </div>
             </div>
         </Fragment>

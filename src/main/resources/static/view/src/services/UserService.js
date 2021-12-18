@@ -28,6 +28,10 @@ const remove = (id) => {
     return http.delete(`/user/${id}`);
 }
 
+const getBirthday = (month) => {
+    return http.get(`/user/birthday/${month}`);
+}
+
 
 const exportedObject = {
     getAll,
@@ -36,7 +40,8 @@ const exportedObject = {
     save,
     update,
     remove,
-    existsEmail
+    existsEmail,
+    getBirthday
 }
 export default exportedObject;
 

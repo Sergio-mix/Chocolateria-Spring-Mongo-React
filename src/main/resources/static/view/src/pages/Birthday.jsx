@@ -1,34 +1,30 @@
 import React, {Fragment, useState, useEffect} from 'react';
 
-import {doOpen, USER} from '../js/manage';
+import {dateFormatter, dateJson, doOpen, USER} from '../js/manage';
 import {
-    columnsProductAseCli
+    birthday
 } from '../js/tablesAndForm';
 import Container from "../componets/Container";
 import Table from "../componets/Table";
-import ProductService from "../services/ProductService";
+import UserService from "../services/UserService";
 
 const Birthday = (props) => {
-
     if (USER === null) {
         doOpen('/');
     }
 
-    const [productAll, setProductAll] = useState([]);
+    const [birthdayAll, setBirthdayAll] = useState([]);
 
-    const tableDataProduct = (event) => {
-        event.then((response) => {
-            for (let product of response.data) {
-                product["count_order"] = 1;
-                if (product.availability) {
-                    product["availability_table"] = "Si";
-                } else {
-                    product["availability_table"] = "No";
+    const tableDataBirthday = (month) => {
+        UserService.getBirthday(month).then((response) => {
+            let list = [];
+            for (let user of response.data) {
+                if (user.birthtDay !== null) {
+                    user.birthtDay = dateFormatter(user.birthtDay);
                 }
-                response.data[product] = product;
+                list.push(user);
             }
-
-            setProductAll(response.data);
+            setBirthdayAll(list);
         }).catch(e => {
             alert("Process error");
             console.log(e);
@@ -36,8 +32,22 @@ const Birthday = (props) => {
     }
 
     useEffect(() => {
-        tableDataProduct(ProductService.getAll());
+        tableDataBirthday(dateJson().month);
     }, [])
+
+    let nav = [];
+
+    switch (USER.type) {
+        case 'ADMIN':
+            nav = {name: "table", url: "/admin", icon: "table", status: ""};
+            break;
+        case 'ASE':
+            nav = {name: "Orders", url: "/ase", icon: "table", status: ""};
+            break;
+        case 'COORD':
+            nav = {name: "table", url: "/coord", icon: "table", status: ""};
+            break;
+    }
 
 
     return (
@@ -46,11 +56,11 @@ const Birthday = (props) => {
                 name: "Product store",
                 boxs: [{name: "GitHub", url: "https://github.com/Sergio-mix", icon: "github", status: ""}]
             }}
-                       nav={[{name: "Products", url: "/products", icon: "store-alt", status: ""},
+                       nav={[nav, {name: "Products", url: "/products", icon: "store-alt", status: ""},
                            {name: "Birthday", url: "/birthday", icon: "birthday-cake", status: "shadow"}]}
                        container={[
-                           <Table name={<h5 className="m-2">Products: {productAll.length}</h5>}
-                                  data={productAll} columns={columnsProductAseCli}
+                           <Table name={<h5 className="m-2">Persons: {birthdayAll.length}</h5>}
+                                  data={birthdayAll} columns={birthday}
                                   event={[]}
 
                                   add={{

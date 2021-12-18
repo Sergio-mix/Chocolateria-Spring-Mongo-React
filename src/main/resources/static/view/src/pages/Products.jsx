@@ -41,10 +41,8 @@ const Products = (props) => {
     }, [])
 
 
-
     function methodFilter(type) {
         let value = document.getElementById("txtFilter").value;
-        alert(value);
         switch (type) {
             case 'price':
                 tableDataProduct(ProductService.priceFilter(value));
@@ -56,7 +54,7 @@ const Products = (props) => {
     }
 
     function inputNumbre() {
-        return [<input id="txtFilter" type="number" className="form-control mt-4 col-md-8 mb-2"/>,
+        return [<input id="txtFilter" type="number" className="form-control mt-4 col-md-8 mb-2 text-center"/>,
             <div className="card-body mx-auto col-md-6">
                 <button className="btn bg-gradient-primary col-md-12"
                         onClick={e => methodFilter("price")}>Ok
@@ -65,7 +63,7 @@ const Products = (props) => {
     }
 
     function inputDescription() {
-        return [<input id="txtFilter" type="text" className="form-control mt-4 col-md-8 mb-2"/>,
+        return [<input id="txtFilter" type="text" className="form-control mt-4 col-md-8 mb-2 text-center"/>,
             <div className="card-body mx-auto col-md-6">
                 <button className="btn bg-gradient-primary col-md-12"
                         onClick={e => methodFilter("description")}>Ok
@@ -89,19 +87,34 @@ const Products = (props) => {
         }
     }
 
+    let nav = [];
+
+    switch (USER.type) {
+        case 'ADMIN':
+            nav = {name: "table", url: "/admin", icon: "table", status: ""};
+            break;
+        case 'ASE':
+            nav = {name: "Orders", url: "/ase", icon: "table", status: ""};
+            break;
+        case 'COORD':
+            nav = {name: "table", url: "/coord", icon: "table", status: ""};
+            break;
+    }
+
+
     return (
         <Fragment>
             <Container title="System" profile_name={USER.name} footer={{
                 name: "Product store",
                 boxs: [{name: "GitHub", url: "https://github.com/Sergio-mix", icon: "github", status: ""}]
             }}
-                       nav={[{name: "Products", url: "/products", icon: "store-alt", status: "shadow"},
+                       nav={[nav, {name: "Products", url: "/products", icon: "store-alt", status: "shadow"},
                            {name: "Birthday", url: "/birthday", icon: "birthday-cake", status: ""}]}
                        container={[
                            <div className="mx-auto">
                                <h2 className="mb-3 text-center">Filter</h2>
                                <div className="container content mb-4 col-lg-8 p-3">
-                                   <select className="form-select" id={"selectFilterData"}
+                                   <select className="form-select text-center" id={"selectFilterData"}
                                            onClick={inputTypeValue}>
                                        <option value="todo">All</option>
                                        <option value="price">Price</option>

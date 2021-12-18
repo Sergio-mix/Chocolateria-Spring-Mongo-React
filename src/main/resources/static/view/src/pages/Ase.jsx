@@ -71,7 +71,7 @@ const Ase = (props) => {
     }
 
     function inputDate() {
-        return [<input id="txtFilter" type="date" className="form-control mt-4 col-md-8 mb-2"/>,
+        return [<input id="txtFilter" type="date" className="form-control mt-4 col-md-8 mb-2 text-center"/>,
             <div className="card-body mx-auto col-md-6">
                 <button className="btn bg-gradient-primary col-md-12"
                         onClick={e => methodFilter("fecha")}>Ok
@@ -80,7 +80,7 @@ const Ase = (props) => {
     }
 
     function inputSetct() {
-        return <select id="txtFilter" className="form-control mt-4 col-md-8"
+        return <select id="txtFilter" className="form-control mt-4 col-md-8 text-center"
                        onClick={e => methodFilter("estado")}>
             <option value="Pendiente">Pendiente</option>
             <option value="Aprobada">Aprobada</option>
@@ -406,7 +406,7 @@ const Ase = (props) => {
                            <div className="mx-auto">
                                <h2 className="mb-3 text-center">Filter</h2>
                                <div className="container content mb-4 col-lg-8 p-3">
-                                   <select className="form-select" id={"selectFilterData"}
+                                   <select className="form-select text-center" id={"selectFilterData"}
                                            onClick={inputTypeValue}>
                                        <option value="todo">All</option>
                                        <option value="fecha">Date</option>

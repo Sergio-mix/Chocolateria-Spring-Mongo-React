@@ -81,6 +81,14 @@ const Login = (props) => {
                                                             className="btn bg-gradient-info w-100 mt-4 mb-0">Sign in
                                                     </button>
                                                 </div>
+                                                <div className="card-footer text-center pt-0 px-lg-2 px-1">
+                                                    <p className="mb-4 text-sm mx-auto mt-4">
+                                                        Don't have an account?
+                                                        <a href="/sign-up"
+                                                           className="text-info text-gradient font-weight-bold mx-2">Sign
+                                                            up</a>
+                                                    </p>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>

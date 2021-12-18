@@ -26,13 +26,6 @@ const Admin = (props) => {
     const tableDataUser = () => {
         UserService.getAll()
             .then((response) => {
-                let list = [];
-                for (let user of response.data) {
-                    if (user.birthtDay !== null) {
-                        user.birthtDay = dateFormatter(user.birthtDay);
-                    }
-                    list.push(user);
-                }
                 setUserList(response.data);
             }).catch(e => {
             alert("Process error");
@@ -57,28 +50,36 @@ const Admin = (props) => {
             }
         }
 
-        UserService.save(json)
+        UserService.existsEmail(json.email)
             .then((response) => {
-                UserService.existsEmail(json.email)
-                    .then((response) => {
-                        if (response.data) {
-                            tableDataUser();
-                            handleClose();
-                            alert('Save user');
-                        } else {
-                            handleClose();
-                            alert('Could not save data');
-                        }
-                    }).catch(e => {
+                if (!response.data) {
+                    UserService.save(json)
+                        .then((response) => {
+                            UserService.existsEmail(json.email)
+                                .then((response) => {
+                                    if (response.data) {
+                                        tableDataUser();
+                                        handleClose();
+                                        alert('Save user');
+                                    } else {
+                                        handleClose();
+                                        alert('Could not save data');
+                                    }
+                                }).catch(e => {
+                                handleClose();
+                                alert("Process error");
+                                console.log(e);
+                            });
+                        }).catch(e => {
+                        handleClose();
+                        alert("Process error");
+                        console.log(e);
+                    });
+                } else {
+                    alert("The email is already registered, try another");
                     handleClose();
-                    alert("Process error");
-                    console.log(e);
-                });
-            }).catch(e => {
-            handleClose();
-            alert("Process error");
-            console.log(e);
-        });
+                }
+            })
     }
 
     const onEditUser = (user, data) => {
