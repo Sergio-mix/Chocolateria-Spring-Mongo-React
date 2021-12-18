@@ -1,6 +1,6 @@
 import React, {Fragment, useState, useEffect} from 'react';
 
-import {doOpen, USER} from '../js/manage';
+import {dateFormatter, doOpen, USER} from '../js/manage';
 import {columnsUser, userListData, columnsProduct, productListData} from '../js/tablesAndForm';
 import Container from "../componets/Container";
 import Table from "../componets/Table";
@@ -26,6 +26,13 @@ const Admin = (props) => {
     const tableDataUser = () => {
         UserService.getAll()
             .then((response) => {
+                let list = [];
+                for (let user of response.data) {
+                    if (user.birthtDay !== null) {
+                        user.birthtDay = dateFormatter(user.birthtDay);
+                    }
+                    list.push(user);
+                }
                 setUserList(response.data);
             }).catch(e => {
             alert("Process error");
@@ -89,7 +96,6 @@ const Admin = (props) => {
         }
 
         json['id'] = data.id;
-
         UserService.update(json)
             .then((response) => {
                 tableDataUser();
@@ -227,7 +233,13 @@ const Admin = (props) => {
                 name: "Product store",
                 boxs: [{name: "GitHub", url: "https://github.com/Sergio-mix", icon: "github", status: ""}]
             }}
-                       nav={[{name: "table", url: "/admin", icon: "table", status: "shadow"}]}
+                       nav={[{name: "table", url: "/admin", icon: "table", status: "shadow"}, {
+                           name: "Products",
+                           url: "/products",
+                           icon: "store-alt",
+                           status: ""
+                       },
+                           {name: "Birthday", url: "/birthday", icon: "birthday-cake", status: ""}]}
                        container={[<Table name={<h5 className={"m-2"}>User: {productList.length}</h5>}
                                           data={userList} columns={columnsUser}
                                           event={["update", "remove"]}

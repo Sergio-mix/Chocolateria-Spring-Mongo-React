@@ -21,12 +21,24 @@ const remove = (id) => {
     return http.delete(`/chocolate/${id}`);
 }
 
+const priceFilter = (prece) => {
+    return http.get(`/chocolate/price/${prece}`);
+}
+
+const descriptionFilter = (description) => {
+    return http.get(`/chocolate/description/${description}`);
+}
+
+
+
 const exportedObject = {
     getAll,
     get,
     save,
     update,
-    remove
+    remove,
+    priceFilter,
+    descriptionFilter,
 }
 export default exportedObject;
 

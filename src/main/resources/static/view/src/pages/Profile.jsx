@@ -29,6 +29,9 @@ const Profile = (props) => {
             case 'COORD':
                 doOpen('/coord');
                 break;
+            case 'CLIENT':
+                doOpen('/products');
+                break;
         }
     }
 
@@ -45,7 +48,8 @@ const Profile = (props) => {
                                 <div className="page-header min-height-200 border-radius-xl mt-2"
                                      style={{backgroundImage: "url(assets/img/curved-images/curved14.jpg)"}}>
                                 </div>
-                                <ProfileFormData name={USER.name} email={USER.email} zone={USER.zone} type={USER.type}/>
+                                <ProfileFormData name={USER.name} email={USER.email} zone={USER.zone} type={USER.type}
+                                                 identification={USER.identification}/>
                                 <div className=" mt-3 mb-3 flex-row align-items-center m-auto">
                                     <button className="btn bg-gradient-info m-2" onClick={sessionUser}>Get into</button>
                                     <button className="btn btn-light-rounded m-2" onClick={login}>Close</button>

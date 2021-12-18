@@ -68,6 +68,8 @@ public class UserService {
             userUpdate.setPassword(user.getPassword());
             userUpdate.setZone(user.getZone());
             userUpdate.setType(user.getType());
+            userUpdate.setBirthtDay(user.getBirthtDay());
+            userUpdate.setMonthBirthtDay(user.getMonthBirthtDay());
             return userRepository.save(userUpdate);
         } else {
             throw new ResourceNotFoundException("User with id: " + user.getId() + " NotFound");

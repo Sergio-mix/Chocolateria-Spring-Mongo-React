@@ -15,3 +15,12 @@ export function date() {
 
     return y + "-" + m + "-" + d;
 }
+
+export function dateFormatter(date) {
+    let string = date.split("-");
+    let y = string[0]
+    let m = string[1]
+    let d = string[2];
+    return y + "-" + m + "-" + d.substring(0, 2);
+}
+

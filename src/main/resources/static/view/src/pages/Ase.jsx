@@ -306,7 +306,9 @@ const Ase = (props) => {
                 name: "Product store",
                 boxs: [{name: "GitHub", url: "https://github.com/Sergio-mix", icon: "github", status: ""}]
             }}
-                       nav={[{name: "table", url: "/ase", icon: "table", status: "shadow"}]}
+                       nav={[{name: "Orders", url: "/ase", icon: "table", status: "shadow"},
+                           {name: "Products", url: "/products", icon: "store-alt", status: ""},
+                           {name: "Birthday", url: "/Birthday", icon: "birthday-cake\n", status: ""}]}
                        container={[<div className="container-fluid py-4">
                            <div className="row mt-2">
                                <div className="col-lg-4">
@@ -406,9 +408,9 @@ const Ase = (props) => {
                                <div className="container content mb-4 col-lg-8 p-3">
                                    <select className="form-select" id={"selectFilterData"}
                                            onClick={inputTypeValue}>
-                                       <option value="todo">all</option>
-                                       <option value="fecha">date</option>
-                                       <option value="estado">status</option>
+                                       <option value="todo">All</option>
+                                       <option value="fecha">Date</option>
+                                       <option value="estado">Status</option>
                                    </select>
                                    {inputFilter}
                                </div>

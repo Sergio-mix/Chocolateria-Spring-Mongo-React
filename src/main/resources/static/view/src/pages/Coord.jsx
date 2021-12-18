@@ -130,7 +130,13 @@ const Coord = (props) => {
                 name: "Product store",
                 boxs: [{name: "GitHub", url: "https://github.com/Sergio-mix", icon: "github", status: ""}]
             }}
-                       nav={[{name: "table", url: "/coord", icon: "table", status: "shadow"}]}
+                       nav={[{name: "table", url: "/coord", icon: "table", status: "shadow"}, {
+                           name: "Products",
+                           url: "/products",
+                           icon: "store-alt",
+                           status: ""
+                       },
+                           {name: "Birthday", url: "/birthday", icon: "birthday-cake", status: ""}]}
                        container={[
                            <Table name={<h5 className={"m-2"}>Order: {orderList.length}</h5>}
                                   data={orderList} columns={columnsOrderCoord}

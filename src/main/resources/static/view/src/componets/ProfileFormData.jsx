@@ -22,6 +22,9 @@ const ProfileFormData = (props) => {
                                 <li className="list-group-item border-0 ps-0 text-sm">
                                     <strong className="text-dark">Zone: </strong> &nbsp; <label>{props.zone}</label>
                                 </li>
+                                <li className="list-group-item border-0 ps-0 text-sm">
+                                    <strong className="text-dark">Identification: </strong> &nbsp; <label>{props.identification}</label>
+                                </li>
                             </ul>
                         </div>
                     </div>
