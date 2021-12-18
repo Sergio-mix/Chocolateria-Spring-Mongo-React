@@ -5,6 +5,7 @@ import co.edu.usa.model.Order;
 import co.edu.usa.model.Product;
 import co.edu.usa.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -18,6 +19,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     public List<Product> getProduct() {
         return productRepository.findAll();
@@ -58,11 +62,24 @@ public class ProductService {
         return product.orElse(null);
     }
 
-    public List<Order> ordersDescription(String description) {
-        return productRepository.descriptionList(description);
+    public List<Product> ordersDescription(String description) {
+        Query query = new Query();
+        String value = ".*" + description + ".*";
+        Criteria dateCriteria = Criteria.where("description").regex(value);
+
+        query.addCriteria(dateCriteria);
+        List<Product> products = mongoTemplate.find(query, Product.class);
+
+        return products;
     }
 
-    public List<Order> ordersPrice(Double price) {
-        return productRepository.priceList(price);
+    public List<Product> ordersPrice(Double price) {
+        Query query = new Query();
+        Criteria dateCriteria = Criteria.where("price").lte(price);
+
+        query.addCriteria(dateCriteria);
+        List<Product> products = mongoTemplate.find(query, Product.class);
+
+        return products;
     }
 }

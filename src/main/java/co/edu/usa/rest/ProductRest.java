@@ -49,13 +49,13 @@ public class ProductRest {
 
     @GetMapping("price/{price}")
     @ResponseStatus(HttpStatus.OK)
-    private List<Order> ordersDescription(@PathVariable("price") Double price) {
+    private List<Product> ordersPriceList(@PathVariable("price") Double price) {
         return productService.ordersPrice(price);
     }
 
     @GetMapping("description/{description}")
     @ResponseStatus(HttpStatus.OK)
-    private List<Order> ordersDescription(@PathVariable("description") String description) {
+    private List<Product> ordersDescription(@PathVariable("description") String description) {
         return productService.ordersDescription(description);
     }
 }
