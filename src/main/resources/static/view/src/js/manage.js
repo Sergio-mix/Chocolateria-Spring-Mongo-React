@@ -30,6 +30,6 @@ export function dateFormatter(date) {
     let y = string[0]
     let m = string[1]
     let d = string[2].substring(0, 2);
-    return d + "-" + m + "-" + y;
+    return y + "-" + m + "-" + d;
 }
 

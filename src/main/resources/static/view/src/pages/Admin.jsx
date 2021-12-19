@@ -26,7 +26,12 @@ const Admin = (props) => {
     const tableDataUser = () => {
         UserService.getAll()
             .then((response) => {
-                setUserList(response.data);
+                let list = [];
+                for (let user of response.data) {
+                    user.birthtDay = dateFormatter(user.birthtDay);
+                    list.push(user);
+                }
+                setUserList(list);
             }).catch(e => {
             alert("Process error");
             console.log(e);
