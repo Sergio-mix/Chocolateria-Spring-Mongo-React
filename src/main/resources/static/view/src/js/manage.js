@@ -13,6 +13,11 @@ export function date() {
     let m = n.getMonth() + 1;
     let d = n.getDate();
 
+    if(m < 10) {
+        m = "0" + m;
+    }
+
+
     return y + "-" + m + "-" + d;
 }
 
