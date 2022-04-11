@@ -17,7 +17,6 @@ export function date() {
         m = "0" + m;
     }
 
-
     return y + "-" + m + "-" + d;
 }
 
